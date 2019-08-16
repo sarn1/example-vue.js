@@ -1,0 +1,3 @@
+﻿- https://blog.bitsrc.io/getting-started-with-vue-js-in-net-core-using-visual-studio-efbb43703630
+- used Gulp v4 script in comments https://github.com/D-Bush/vuejs-aspnet-core/blob/master/netcore-vuejs/gulpfile.js
+- had to install gulp globally in the project folder `VueSample/VueSample` https://stackoverflow.com/questions/39195128/gulp-is-not-recognized-as-an-internal-or-external-command/39215241
