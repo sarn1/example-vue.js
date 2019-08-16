@@ -1,5 +1,12 @@
 # Vue.js
 
+### Team Tree House
+- https://teamtreehouse.com/library/vuejs-basics
+- v-on acepts any of the browser's standard events, click, double click, mouse enter, key up/down/press - onClick, onEvent, etc.. which is why its call v-on.
+
+### Tania's Vue Tutorial
+- https://github.com/taniarascia/vue-tutorial
+
 ### VueSample (*.NET Core with Vue)
 - https://blog.bitsrc.io/getting-started-with-vue-js-in-net-core-using-visual-studio-efbb43703630 - archived in project folder as PDF.
 - used Gulp v4 script in comments https://github.com/D-Bush/vuejs-aspnet-core/blob/master/netcore-vuejs/gulpfile.js
