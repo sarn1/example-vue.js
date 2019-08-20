@@ -29,19 +29,30 @@ new Vue({
   el: '#flashcard-app',
   data: {
     cards: cards,
-    newFront: '',
-    newBack: ''
+    newFront: 'z',
+    newBack: '',
+    test:'',
+    error: false
   },
   methods: {
     toggleCard: function(card){
       card.flipped = !card.flipped;
     },
+
+    // creates new card and pushes it into the array
     addNew: function(){
-      this.cards.push({
-        front: this.newFront,
-        back: this.newBack,
-        flipped: false
-      });
+
+      // if either field is empty, show error msg and not add to stack
+      if (!this.newFront || !this.newBack) {
+        this.error = true;
+      } else {
+        this.cards.push({
+          front: this.newFront, // access from form
+          back: this.newBack,   // access from form
+          flipped: false
+        });
+      }
+      
     }
   }
 });

@@ -13,26 +13,47 @@
 
     <h1>Flashcard App!</h1>
 
+    <!-- 
+      v-model - new directive that bind a form field to the data property in the vue obj
+    -->
+    <h2>{{test}}</h2>
+    <input v-model="test" type="text">
+
+
     <div class="flashcard-form">
       <label for="front">Front
         <input v-model="newFront" type="text" id="front">
       </label>
+
       <label for="back">Back
+        <!-- when user press enter key, call the addNew function -->
         <input v-on:keypress.enter="addNew" v-model="newBack" type="text" id="back">
       </label>
       <button v-on:click="addNew">Add a New Card</button>
-      <span class="error">Oops! Flashcards need a front and a back.</span>
+      <span v-show="error" class="error">Oops! Flashcards need a front and a back.</span>
     </div>
 
     <ul class="flashcard-list">
+      <!-- the index part is optional arg for v-for directive, 
+        but specifying index allows us access to it which is the index of the current card -->
       <li v-on:click="toggleCard(card)" v-for="(card, index) in cards">
+
+        <!-- vue  enter/leave list transition, this is 1 of 6 vue transition classes, also see css -->
         <transition name="flip">
+          <!-- 
+            conditional statement 
+            v-if and v-else can only work if they are consecutive
+          -->
           <p v-if="!card.flipped" key="front" class="card">{{card.front}}
               <span v-on:click="cards.splice(index,1)" class="delete-card">X</span>
           </p>
           <p v-else key="back" class="card">{{card.back}}
               <span v-on:click="cards.splice(index,1)" class="delete-card">X</span>
           </p>
+
+
+
+          
         </transition>
       </li>
     </ul>
