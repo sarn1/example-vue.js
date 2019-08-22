@@ -43,6 +43,8 @@ const posts = [
   },
 ];
 
+// Vue.config.devtools = true;
+
 new Vue({
   el: '#app',
   data: {
@@ -76,5 +78,8 @@ new Vue({
     }
   }
 });
+
+// window.__VUE_DEVTOOLS_GLOBAL_HOOK__.Vue = app.constructor;
+
 
 
