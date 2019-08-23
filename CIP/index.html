@@ -1,21 +1,201 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css">
-  <title>Skimmit News 2</title>
-  </head>
+
+<link href="https://www.chapelinthepines.com/wp-content/themes/photography-child/page-wedding_chapel_gazebo_banquet_hall_rental.css?vers=2.4" rel="stylesheet">
+<link href="https://www.chapelinthepines.com/wp-content/uploads/siteground-optimizer-assets/siteground-optimizer-combined-styles-e6e8cafac107d0596f46cf48984070cb.min.css" rel="stylesheet">
+
+
 <body>
   <div id="app" class="container">
-    <h1>Skimmit News</h1>
-    <div class="form">
+
+
+    <div class="one withsmallpadding ppb_text" style="padding:0 0 30px 0;">
+       <div class="standard_wrapper">
+          <div class="page_content_wrapper">
+             <div class="inner">
+                <div style="margin:auto;width:100%">
+                   <section class="reserve">
+                      <div id="menu_section">
+                         <h3>Select a wedding package:</h3>
+                        <select v-on:change="menu_selection">
+                            <option value="-1">Choose...</option>
+                            <option v-for="option in options">{{ option.menu_label }}</option>
+                         </select>
+                      </div>
+
+
+
+                      <!--
+                      <div id="reservation_form">
+                         <form action="/wedding_chapel_gazebo_banquet_hall_rental-process" method="post" onsubmit="if (!window.__cfRLUnblockHandlers) return false; MM_validateForm('bride_name','','R','groom_name','','R','bride_phone','','R','groom_phone','','R','extra_amount_txt','','NisNum','custom_deposit_txt','','NisNum');return document.MM_returnValue" autocomplete="off">
+                            <div id="elopement_section">
+                               <h3><a href="/elopement-small-wedding/">OPTION 1: Elopements / Small Private Wedding (Up to 25 Guests)</a></h3>
+                               <h4>Please fill out the form below in the order they appear. Try not to use autocomeplte as it may cause problems.</h4>
+                               Arrive 15 minutes before ceremony start time. Bridal dressing room is not available in this package. Includes chapel, gazebo, grounds, officiant services and gazebo chairs. A guest is considered anyone, regardless of age, including the bridal party, who attends the wedding that is not a vendor, such as a photographer.<br> <br> <strong>0-2 Guests</strong><br> <input type="radio" name="wedding_package" value="350|Elopement/Small Private Wedding (Fri-Sun) 0-2 Guests" onclick="if (!window.__cfRLUnblockHandlers) return false; "> Friday–Sunday ($350)<br> <input type="radio" name="wedding_package" value="250|Elopement/Small Private Wedding (Mon-Thur) 0-2 Guests" onclick="if (!window.__cfRLUnblockHandlers) return false; "> Monday–Thursday ($250)<br> <br> <strong>3-12 Guests</strong><br> <input type="radio" name="wedding_package" value="500|Elopement/Small Private Wedding (Fri-Sun) 3-12 Guests" onclick="if (!window.__cfRLUnblockHandlers) return false; "> Friday–Sunday ($500)<br> <input type="radio" name="wedding_package" value="400|Elopement/Small Private Wedding (Mon-Thur) 3-12 Guests" onclick="if (!window.__cfRLUnblockHandlers) return false; ;"> Monday–Thursday ($400)<br> <br> <strong>13-25 Guests</strong><br> <input type="radio" name="wedding_package" value="700|Elopement/Small Private Wedding (Fri-Sun) 13-25 Guests" onclick="if (!window.__cfRLUnblockHandlers) return false; "> Friday–Sunday ($700)<br> <input type="radio" name="wedding_package" value="550|Elopement/Small Private Wedding (Mon-Thur) 13-25 Guests" onclick="if (!window.__cfRLUnblockHandlers) return false; ;"> Monday – Thursday ($550)<br> <br>
+                               <hr>
+                            </div>
+                            <div id="wedding_only_section">
+                               <h3><a href="/wedding-ceremony-only/">OPTION 2: Wedding Ceremony Only, (Up to 150 Guests)</a></h3>
+                               <h4>Please fill out the form below in the order they appear. Try not to use autocomeplte as it may cause problems.</h4>
+                               <em><b>Full Wedding Ceremony Gold Package</b></em><br> Includes chapel, gazebo, grounds, bridal dressing room, officiant services, ceremony music, gazebo chairs, wedding ceremony staff, rehearsal time, and personalized brick to be placed within the path leading to the chapel.<br> <input type="radio" name="wedding_package" value="1200|Wedding Ceremony - Gold (Fri-Sun)" onclick="if (!window.__cfRLUnblockHandlers) return false; javascript: included_brick_section_on(); optional_brick_section_off();"> Fri-Sun ($1,200)<br> <input type="radio" name="wedding_package" value="900|Wedding Ceremony - Gold (Mon-Thur)" onclick="if (!window.__cfRLUnblockHandlers) return false; javascript: included_brick_section_on(); optional_brick_section_off();"> Mon-Thu ($900)<br> <br>  <em><b>Full Wedding Ceremony Silver Package</b></em><br> Includes chapel, gazebo, grounds, bridal dressing room, officiant services, ceremony music, and gazebo chairs.<br> <input type="radio" name="wedding_package" value="1000|Wedding Ceremony - Silver (Fri-Sun)" onclick="if (!window.__cfRLUnblockHandlers) return false; javascript: included_brick_section_off(); optional_brick_section_on();"> Fri-Sun ($1,000)<br> <input type="radio" name="wedding_package" value="700|Wedding Ceremony - Silver (Mon-Thur)" onclick="if (!window.__cfRLUnblockHandlers) return false; javascript: included_brick_section_off(); optional_brick_section_on();"> Mon-Thu ($700)<br> <br> Wedding ceremonies are performed from 9:00 a.m. to 8:00 p.m. , every day of the year, including holidays.<br> <br>
+                               <hr>
+                            </div>
+                            <div id="wedding_rec_section">
+                               <h3><a href="/wedding-ceremony-and-reception/">OPTION 3: Pearl Wedding Ceremony &amp; Reception Package (Up to 150 Guests)</a></h3>
+                               <h4>Please fill out the form below in the order they appear. Try not to use autocomeplte as it may cause problems.</h4>
+                               <em><b>Pearl Wedding Package</b></em><br> <em>Wedding</em>: Grounds &amp; Gardens, White Chapel, Garden Gazebo, Professional Wedding Officiant (you may bring your own officiant), Rehearsal (guaranteed the night before), Ceremony Music (indoor and outdoor), White Gazebo Chairs, Personalized Wedding Brick in Bridal Path, Bridal Cottage Dressing Room, Wedding Ceremony Coordinators, Final Cleanup, and use of the grounds for Engagement Pictures.<br> <br> <em>Reception</em>: Venue Setup and Cleanup, Table Linens (white or black), Chair Covers (white or black) &amp; Sashes (many colors), Table Runners, Skirted Tables, Permanent Bridal Party Stage, Stage Up-Lighting, Head Table Spot Lighting, Twin 39” Monitors, Media Projector, Large Permanent Dance Floor, Cake Display Counter, Intimate Lighting Enhancements, Fire Pit, Reception Coordinators, Wedding and Reception Planning, All Buildings Climate Controlled, Paved Lighted Parking, In-house Catering, Quality Disposable Utensils, and Final Cleanup. <br><br> Basic open bar package, and a meal with three entrées and two sides for the first 50 guests. <br> <br> <strong>In Season</strong><br> <input type="radio" name="wedding_package" value="8900|Pearl Package (In-Season Sat)" onclick="if (!window.__cfRLUnblockHandlers) return false; "> $8,900 Saturday<br> <input type="radio" name="wedding_package" value="7400|Pearl Package (In-Season Fri &amp; Sun)" onclick="if (!window.__cfRLUnblockHandlers) return false; "> $7,400 Friday &amp; Sunday<br> <input type="radio" name="wedding_package" value="5700|Pearl Package (In-Season Mon-Thur)" onclick="if (!window.__cfRLUnblockHandlers) return false; "> $5,700 Monday - Thursday<br> <br> <strong>Off Season (November 15th thru April 15th)</strong><br> <input type="radio" name="wedding_package" value="7400|Pearl Package (Off-Season Sat)" onclick="if (!window.__cfRLUnblockHandlers) return false; "> $7,400 Saturday<br> <input type="radio" name="wedding_package" value="6400|Pearl Package (Off-Season Fri &amp; Sun)" onclick="if (!window.__cfRLUnblockHandlers) return false; "> $6,400 Friday &amp; Sunday<br> <input type="radio" name="wedding_package" value="5700|Pearl Package (Off-Season Mon-Thur)" onclick="if (!window.__cfRLUnblockHandlers) return false; "> $5,700 Monday - Thursday<br> <br> If a Monday through Thursday wedding is on a holiday, pricing is the same as Sunday. If a Sunday wedding is on Memorial Day or Labor Day weekend, pricing is the same as a Saturday. <br> <br>
+                               <hr>
+                            </div>
+                            <div id="banquet_section">
+                               <h3><a href="/wedding-hall-only/">OPTION 4: Ruby Wedding Reception Only (Up to 150 Guests)</a></h3>
+                               <h4>Please fill out the form below in the order they appear. Try not to use autocomeplte as it may cause problems.</h4>
+                               <em>Reception</em>: Venue Setup and Cleanup, Table Linens (white or black), Chair Covers (white or black) &amp; Sashes (many colors), Table Runners, Skirted Tables, Permanent Bridal Party Stage, Stage Up-Lighting, Head Table Spot Lighting, Twin 39” Monitors, Media Projector, Large Permanent Dance Floor, Cake Display Counter, Intimate Lighting Enhancements, Fire Pit, Reception Coordinators, Wedding and Reception Planning, All Buildings Climate Controlled, Paved Lighted Parking, In-house Catering, Quality Disposable Utensils, and Final Cleanup.<br><br> Basic open bar package, and a meal with three entrées and two sides for the first 50 guests. <br> <br> <strong>In Season</strong><br> <input type="radio" name="wedding_package" value="8500|Ruby Package (In-Season Sat)" onclick="if (!window.__cfRLUnblockHandlers) return false; "> $8,500 Saturday<br> <input type="radio" name="wedding_package" value="7000|Ruby Package (In-Season Fri &amp; Sun)" onclick="if (!window.__cfRLUnblockHandlers) return false; "> $7,000 Friday &amp; Sunday<br> <input type="radio" name="wedding_package" value="5300|Ruby Package (In-Season Mon-Thur)" onclick="if (!window.__cfRLUnblockHandlers) return false; "> $5,300 Monday - Thursday<br> <br> <strong>Off Season (November 15th thru April 15th)</strong><br> <input type="radio" name="wedding_package" value="7000|Ruby Package (Off-Season Sat)" onclick="if (!window.__cfRLUnblockHandlers) return false; "> $7,000 Saturday<br> <input type="radio" name="wedding_package" value="6000|Ruby Package (Off-Season Fri &amp; Sun)" onclick="if (!window.__cfRLUnblockHandlers) return false; "> $6,000 Friday &amp; Sunday<br> <input type="radio" name="wedding_package" value="5300|Ruby Package (Off-Season Mon-Thur)" onclick="if (!window.__cfRLUnblockHandlers) return false; "> $5,300 Monday - Thursday<br> <br> If a Monday through Thursday wedding is on a holiday, pricing is the same as Sunday. If a Sunday wedding is on Memorial Day or Labor Day weekend, pricing is the same as a Saturday. <br> <br>
+                               <hr>
+                            </div>
+                            <div id="make_payment_section">
+                               <h3><a href="#">OPTION 5: Make A Payment</a></h3>
+                               <h4>Please fill out the form below in the order they appear. Try not to use autocomeplte as it may cause problems.</h4>
+                            </div>
+                            <h3>Agreed Date</h3>
+                            <input type="text" name="wedding_date" id="wedding_date"> <br>
+                            <hr>
+                            <h3>Agreed Ceremony Start Time</h3>
+                            Please select an agreed ceremony start time, typically 5:15pm:
+                            <select name="wedding_time">
+                               <option value="">Choose...</option>
+                               <option value="9:00AM">9:00 AM</option>
+                               <option value="9:15AM">9:15 AM</option>
+                               <option value="9:30AM">9:30 AM</option>
+                               <option value="9:45AM">9:45 AM</option>
+                               <option value="10:00AM">10:00 AM</option>
+                               <option value="10:15AM">10:15 AM</option>
+                               <option value="10:30AM">10:30 AM</option>
+                               <option value="10:45AM">10:45 AM</option>
+                               <option value="11:00AM">11:00 AM</option>
+                               <option value="11:15AM">11:15 AM</option>
+                               <option value="11:30AM">11:30 AM</option>
+                               <option value="11:45AM">11:45 AM</option>
+                               <option value="12:00PM">12:00 PM</option>
+                               <option value="12:15PM">12:15 PM</option>
+                               <option value="12:30PM">12:30 PM</option>
+                               <option value="12:45PM">12:45 PM</option>
+                               <option value="1:00PM">1:00 PM</option>
+                               <option value="1:15PM">1:15 PM</option>
+                               <option value="1:30PM">1:30 PM</option>
+                               <option value="1:45PM">1:45 PM</option>
+                               <option value="2:00PM">2:00 PM</option>
+                               <option value="2:15PM">2:15 PM</option>
+                               <option value="2:30PM">2:30 PM</option>
+                               <option value="2:45PM">2:45 PM</option>
+                               <option value="3:00PM">3:00 PM</option>
+                               <option value="3:15PM">3:15 PM</option>
+                               <option value="3:30PM">3:30 PM</option>
+                               <option value="3:45PM">3:45 PM</option>
+                               <option value="4:00PM">4:00 PM</option>
+                               <option value="4:15PM">4:15 PM</option>
+                               <option value="4:30PM">4:30 PM</option>
+                               <option value="4:45PM">4:45 PM</option>
+                               <option value="5:00PM">5:00 PM</option>
+                               <option value="5:15PM">5:15 PM</option>
+                               <option value="5:30PM">5:30 PM</option>
+                               <option value="5:45PM">5:45 PM</option>
+                               <option value="6:00PM">6:00 PM</option>
+                               <option value="6:15PM">6:15 PM</option>
+                               <option value="6:30PM">6:30 PM</option>
+                               <option value="6:45PM">6:45 PM</option>
+                               <option value="7:00PM">7:00 PM</option>
+                               <option value="7:15PM">7:15 PM</option>
+                               <option value="7:30PM">7:30 PM</option>
+                               <option value="7:45PM">7:45 PM</option>
+                               <option value="8:00PM">8:00 PM</option>
+                            </select>
+                            <br>
+                            <div id="included_brick_option">
+                               <hr>
+                               <h3>Included Options:</h3>
+                               Personalized Brick
+                               <div class="included_brick_section"> Your package includes a brick to celebrate an important event in your life, whether it is your wedding day, anniversary, birthday, or memory of someone, etc. you choose what you want engraved on your brick. Your brick will be set into the winding brick pathway, or purchase an extra brick for your home. Each brick is 4" x 8"<br> Please indicate what you want on your brick, use up to 3 lines, 14 characters per line. <br> <br> Row 1 <small><em>(Prefer up to 14 characters, 20 max) Groom's Last Name</em></small> <input type="text" name="included_brick_row1" id="included_brick_row1" maxlength="14"> <br> Row #2 <small><em>(Prefer up to 14 characters, 20 max) Groom's First Name &amp; Bride's First Name</em></small> <input type="text" name="included_brick_row2" id="included_brick_row2" maxlength="14"> <br> Row #3 <small><em>(Month, Day, Year) Example 05/15/2017</em></small> <input type="text" name="included_brick_row3" id="included_brick_row3" maxlength="14"> <br></div>
+                            </div>
+                            <hr>
+                            <div id="extras_options">
+                               <h3>Extras</h3>
+                               <div id="ceremony_music_section"> <input type="checkbox" name="extras[]" value="75|Ceremony Music"> Ceremony Music - Elopement or Small Private Wedding only ($75) <br></div>
+                               <div id="bridal_cottage_section"> <input type="checkbox" name="extras[]" value="75|Bridal Cottage"> Bridal Cottage, Bride only can change on premises, available 30 minutes before ceremony ($75) <br></div>
+                               <div id="aisle_section"> <input type="checkbox" name="extras[]" value="40|Aisle Runner"> Aisle Runner In Chapel ($40)<br></div>
+                               <div id="optional_brick_container">
+                                  <input type="checkbox" name="extras[]" value="75|Personalized Brick" onclick="if (!window.__cfRLUnblockHandlers) return false; javascript: toggle_brick_section();" id="chkPersonalizedBrick"> Personalized Brick ($75)<br>
+                                  <div class="brick_section"> <br> Buy a brick to celebrate an important event in your life, whether it is your wedding day, anniversary, birthday, or memory of someone, etc. you choose what you want engraved on your brick. Your brick will be set into the winding brick pathway, or purchase an extra brick for your home. Each brick is 4" x 8"<br> Please indicate what you want on your brick, use up to 3 lines, 14 characters per line. <br> <br> Row #1 <small><em>Example: Anderson</em></small> <input type="text" name="extra_brick_row1" id="extra_brick_row1" maxlength="14"> <br> Row #2 <small><em>Example: John &amp; Sandy</em></small> <input type="text" name="extra_brick_row2" id="extra_brick_row2" maxlength="14"> <br> Row #3 <small><em>Example: 5/10/2016</em></small> <input type="text" name="extra_brick_row3" id="extra_brick_row3" maxlength="14"> <br> <br></div>
+                               </div>
+                               <div id="photobooth_section"><input type="checkbox" name="extras[]" value="750|Photobooth"> Photobooth ($750)<br></div>
+                               <div id="candelabras_section"><input type="checkbox" name="extras[]" value="40|Candelabras"> Candelabras In Chapel ($40)<br></div>
+                               <div id="custom_extra_amount_container"> <input type="checkbox" name="extras[]" value="0|Custom Extra Amount" id="extra_amount_chk" onclick="if (!window.__cfRLUnblockHandlers) return false; checkExtraAmount('CHECKBOX')"> Other agreed upon amount of services, enter cost for these extra services below: <input type="text" name="extra_amount" id="extra_amount_txt" onkeyup="if (!window.__cfRLUnblockHandlers) return false; jQuery('#extra_amount_chk').val(jQuery('#extra_amount_txt').val()+'|Custom Extra Amount');" onblur="if (!window.__cfRLUnblockHandlers) return false; checkExtraAmount('TEXTBOX')" autocomplete="off" readonly="" onclick="if (!window.__cfRLUnblockHandlers) return false; extra_amount_readonly_off()"></div>
+                               <br>
+                               <hr>
+                            </div>
+                            <h3>Contact Information</h3>
+                            Bride First &amp; Last Name* <input name="bride_name" type="text" id="bride_name" style="margin-right:50px;"> Groom First &amp; Last Name* <input name="groom_name" type="text" id="groom_name"> Bride Cell phone* <input name="bride_phone" type="text" id="bride_phone"> Groom Cell Phone* <input name="groom_phone" type="text" id="groom_phone"> Bride Email <input name="bride_email" type="text" id="bride_email"> Groom Email <input name="groom_email" type="text" id="groom_email"> Bride Address <input type="text" name="bride_address"> Groom Address <input type="text" name="groom_address"> <br>
+                            <hr>
+                            <h3>Payment</h3>
+                            <div id="deposit_elopment">  <input type="radio" name="deposit" value="0" onclick="if (!window.__cfRLUnblockHandlers) return false; checkDeposit();" id="full_deposit_rdr_elope"> Pay full package amount (If fee is less than $500, the full amount of the package is due at time of reservation)<br> <input type="radio" name="deposit" value="500" onclick="if (!window.__cfRLUnblockHandlers) return false; checkDeposit();" id="500_deposit_rdr_elope"> Pay package deposit of $500<br> <small>Note: Remaining balance due 30 days before wedding</small> <br></div>
+                            <div id="deposit_silvergold">  <input type="radio" name="deposit" value="0" onclick="if (!window.__cfRLUnblockHandlers) return false; checkDeposit();" id="full_deposit_rdr_silvergold"> Pay full package amount<br> <input type="radio" name="deposit" value="500" onclick="if (!window.__cfRLUnblockHandlers) return false; checkDeposit();" id="500_deposit_rdr_silvergold"> Pay package deposit of $500<br> <small>Note: Remaining balance due 30 days before wedding</small> <br></div>
+                            <div id="deposit_diamond">  <input type="radio" name="deposit" value="1500" onclick="if (!window.__cfRLUnblockHandlers) return false; checkDeposit();" id="1000_deposit_rdr"> Pay package deposit amount of $1,500 when more than one year from wedding date.<br> <input type="radio" name="deposit" value="3000" onclick="if (!window.__cfRLUnblockHandlers) return false; checkDeposit();" id="2000_deposit_rdr"> Pay package deposit amount of $3,000 when more than six months and nine months from wedding date. <br> <input type="radio" name="deposit" value="4500" onclick="if (!window.__cfRLUnblockHandlers) return false; checkDeposit();" id="500_deposit_rdr_diamond"> Pay package deposit amount of $4,500 when more then three months and six months from wedding date. <br></div>
+                            <div id="deposit_banquet_hall">  <input type="radio" name="deposit" value="1500" onclick="if (!window.__cfRLUnblockHandlers) return false; checkDeposit();" id="1000_deposit_rdr_banquet"> Pay package deposit amount of $1,500 when more than one year from wedding date.<br> <input type="radio" name="deposit" value="3000" onclick="if (!window.__cfRLUnblockHandlers) return false; checkDeposit();" id="2000_deposit_rdr_banquet"> Pay package deposit amount of $3,000 when more than six months and less than nine months from wedding date. <br> <input type="radio" name="deposit" value="4500" onclick="if (!window.__cfRLUnblockHandlers) return false; checkDeposit();" id="500_deposit_rdr_banquet"> Pay package deposit amount of $4,500 when more then three months and less than six months from wedding date. <br></div>
+                            <div id="deposit_make_payment"> </div>
+                            <div id="custom_deposit_container"> <input type="radio" name="deposit" value="0" id="custom_deposit_rdr" onclick="if (!window.__cfRLUnblockHandlers) return false; checkDeposit();"> Custom or full amount, enter amount below: <input type="text" name="variable_deposit_amount" id="custom_deposit_txt" onkeyup="if (!window.__cfRLUnblockHandlers) return false; javascript: jQuery('#custom_deposit_rdr').val(jQuery('#custom_deposit_txt').val()); jQuery('#custom_deposit_rdr').attr('checked','checked'); checkDeposit();" autocomplete="off"> <br> For other deposit amount agreed upon, remaining balance, or payment towards package. Please note in comments box.<br></div>
+                            <br>
+                            <hr>
+                            <h3>Comments</h3>
+                            <textarea style="width:600px; height: 200px;" name="comments"></textarea>
+                            <br>
+                            <div id="legal">
+                               Deposit and or all payments will be applied in full towards the total fees. Deposit and all payments are therefore non-refundable and non-transferable. If package is reserved online, there are no automatic payments as credit card/paypal information is not stored online. You either may: <br> &nbsp;&nbsp;&nbsp;(1) pay your remaining balance in U.S. funds by check, money order, cashier's check, or cash at that time, OR <br> &nbsp;&nbsp;&nbsp;(2) proceed to make a payment below.<br> <br> The balance of the contract is due 30 days before the event. If the remaining balance is not paid 30 days before the ceremony, the reservation and services are subject to cancellation at Chapel in the Pines' sole discretion.<br> <br> This contract is for the use of the venue and the grounds for the allotted time. Any party staying beyond the allotted time period will be charged accordingly. We are not responsible for accidents or theft.<br> I give my permission to use photographs of my wedding to use in all forms of media for promotional purposes.<br>
+                               <div id="pdf_agreement_link"> <br> <a href="/wp-content/uploads/2019/07/Chapel-in-the-Pines-Wedding-and-Banquet-Center-Terms.pdf" target="_blank">(Download PDF of agreement terms, banquet hall, for paying online)</a><br> <br></div>
+                               <input type="checkbox" value="acknowledge" name="acknowledge" id="acknowledge"> By clicking here you acknowledge you have read and agree to the Chapel in the Pines terms and conditions.<br>
+                               <div id="agree_section"> <br> Click this <a href="/banquet-hall-terms-conditions/" target="_blank">link</a> to view agreement terms when reserving the banquet hall.</div>
+                               <br>
+                            </div>
+                            <input type="text" class="bukema" value="" name="bukema">
+                            <div>
+                               <h3>Anti-Spam: WHAT IS THE CAPITAL OF ILLINOIS (ANSWER WITH ALL LOWERCASE AND NO SPACES):</h3>
+                               <input type="text" name="bumper" class="bumper">
+                               <hr>
+                            </div>
+                            <br><br>
+                            <p>We look forward to hosting your wedding! Please contact us to ensure date and time is available before proceeding. Clicking 'Proceed To Payment' will take you to the secure payment page. You may use PayPal, debit, or credit cards.</p>
+                            <br> <br> <input type="submit" value="Proceed To Payment"> <input type="hidden" name="total" id="total"> <input type="hidden" name="deposit" id="deposit"> <input type="hidden" name="summary" id="summary"> <input type="hidden" name="menu_selected" id="menu_selected"> <input type="hidden" name="type" id="type" value="RESERVATION"> <input autocomplete="false" name="hidden" type="text" style="display:none;">
+                         </form>
+                         <br> <small> Deposit and or all payments will be applied in full towards the total fees. Deposit and all payments are therefore non-refundable and non-transferable. If package is reserved online, there are no future automatic payments as credit card/PayPal information is not stored online. You may make future payments on our website. </small> <br> <br>
+                      </div>
+                      -->
+
+
+                      <div class="reserve_results">
+                         <hr>
+                         <br>
+                         <small>
+                            <h5>What you have so far...</h5>
+                            <br>
+                            Summary:
+                            <ul>
+                              <li v-for="summary in summaries">{{ summary }}</li>
+                            </ul>
+                            <br>
+                         </small>
+                      </div>
+                   </section>
+                </div>
+             </div>
+          </div>
+       </div>
+    </div>
+
+
+    <!-- <div class="form">
       Title: <input v-model="title" type="text">
       Summary: <input v-model="summary" type="text">
       <button v-on:click="createNew">Create New</button>
     </div>
+
     <div class="post" v-for="post in orderedList">
       <div id="voteCounter">
         <span v-on:click="increment(post)">+</span>
@@ -27,10 +207,14 @@
         <h3>{{post.title}}</h3>
         <p>{{post.summary}}</p>
       </div>
-    </div>
-  </div>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.10/vue.js"></script>
+    </div> -->
 
+
+  </div>
+
+
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.10/vue.js"></script>
   <script src="app.js"></script>
 </body>
 </html>
