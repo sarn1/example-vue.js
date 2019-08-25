@@ -19,7 +19,7 @@
                          <h3>Select a wedding package:</h3>
                         <select v-on:change="menu_selection">
                             <option value="-1">Choose...</option>
-                            <option v-for="option in options">{{ option.menu_label }}</option>
+                            <option v-for="package in packages">{{ package.menu_label }}</option>
                          </select>
                       </div>
 
@@ -215,6 +215,7 @@
 
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.10/vue.js"></script>
+  <script src="packages.js"></script>
   <script src="app.js"></script>
 </body>
 </html>

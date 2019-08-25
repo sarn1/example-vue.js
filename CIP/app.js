@@ -1,52 +1,13 @@
-
-let Option1 = {
-    package_summary: "",
-    name : "Vivekananda School",
-    location : "Delhi",
-    established : "1971"
-}
-
-
-const Options = [
-  {
-    id: 1,
-    menu_label: "OPTION 1: Elopements / Small Private Wedding (Up to 25 Guests)",
-    obj: Option1
-  },
-  {
-    id: 2,
-    menu_label: "OPTION 2: Wedding Ceremony Only, (Up to 150 Guests)",
-    //obj: option2
-  },
-  {
-    id: 3,
-    menu_label: "OPTION 3: Pearl Wedding Ceremony &amp; Reception Package (Up to 150 Guests)",
-    //obj: option3
-  },
-  {
-    id: 4,
-    menu_label: "OPTION 4: Ruby Wedding Reception Only (Up to 150 Guests)",
-    //obj: option4
-  },
-  {
-    id: 5,
-    menu_label: "OPTION 5: Make A Payment",
-    //obj: option5
-  }
-];
-
-
-//Vue.config.devtools = true;
-
 new Vue({
   el: '#app',
   data: {
-    options: Options,
+    packages: Packages,
     selection: -1,
     summaries: [],
     total: 0,
     deposit: 0,
-    package: undefined
+    package: undefined,
+    show_form: false
   },
    methods: {
      init: function() {
@@ -54,7 +15,8 @@ new Vue({
        this.summaries= [],
        this.total= 0,
        this.deposit= 0,
-       this.package= undefined
+       this.package= undefined,
+       this.show_form = false
      },
      menu_selection: function(e) {
        this.init();
@@ -62,8 +24,10 @@ new Vue({
        if (e.target.options.selectedIndex-1 >= 0) {
          this.selection = e.target.options.selectedIndex;
 
-         this.summaries.push("Selection: " + Options[e.target.options.selectedIndex-1].menu_label);
+         this.summaries.push("Selection: " + Packages[e.target.options.selectedIndex-1].menu_label);
          console.log("Menu Selected Index: " + e.target.options.selectedIndex);
+
+         this.show_form = true;
        }
 
      }
@@ -93,4 +57,11 @@ new Vue({
   // }
 });
 
-//window.__VUE_DEVTOOLS_GLOBAL_HOOK__.Vue = app.constructor;
+
+
+/*
+  // TODO:
+  - form creation
+  - style summary
+  - inject - https://www.chapelinthepines.com/wedding_chapel_gazebo_banquet_hall_rental/?type=PAYMENT
+*/
