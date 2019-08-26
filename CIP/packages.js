@@ -80,7 +80,7 @@ let Package1 = {
 
 let Package2 = {
     url : "/wedding-ceremony-only/",
-    summary: "<em><strong>Gold Package</strong>/em> includes Includes chapel, gazebo, grounds, bridal dressing room, officiant services, ceremony music, gazebo chairs, wedding ceremony staff, rehearsal time, and personalized brick to be placed within the path leading to the chapel.  <em><strong>Silver Package</strong><em> includes chapel, gazebo, grounds, bridal dressing room, officiant services, ceremony music, and gazebo chairs. <br><br>Wedding ceremonies are performed from 9:00 a.m. to 8:00 p.m. , every day of the year, including holidays.",
+    summary: "<em><strong>Gold Package</strong></em> includes Includes chapel, gazebo, grounds, bridal dressing room, officiant services, ceremony music, gazebo chairs, wedding ceremony staff, rehearsal time, and personalized brick to be placed within the path leading to the chapel.  <em><strong>Silver Package</strong><em> includes chapel, gazebo, grounds, bridal dressing room, officiant services, ceremony music, and gazebo chairs. <br><br>Wedding ceremonies are performed from 9:00 a.m. to 8:00 p.m. , every day of the year, including holidays.",
     tier : [
       {
         label: "Full Wedding Ceremony Gold Package",
@@ -322,3 +322,5 @@ const Packages = [
     obj: Package5
   }
 ];
+
+ const TimeSlots = [{time:"9:15AM"},{time:"9:30AM"},{time:"9:45AM"},{time:"10:00AM"},{time:"10:15AM"},{time:"10:30AM"},{time:"10:45AM"},{time:"11:00AM"},{time:"11:15AM"},{time:"11:30AM"},{time:"11:45AM"},{time:"12:00PM"},{time:"12:15PM"},{time:"12:30PM"},{time:"12:45PM"},{time:"1:00PM"},{time:"1:15PM"},{time:"1:30PM"},{time:"1:45PM"},{time:"2:00PM"},{time:"2:15PM"},{time:"2:30PM"},{time:"2:45PM"},{time:"3:00PM"},{time:"3:15PM"},{time:"3:30PM"},{time:"3:45PM"},{time:"4:00PM"},{time:"4:15PM"},{time:"4:30PM"},{time:"4:45PM"},{time:"5:00PM"},{time:"5:15PM"},{ time:"5:30PM"},{ time:"5:45PM"},{ time:"6:00PM"},{ time:"6:15PM"},{ time:"6:30PM"},{ time:"6:45PM"},{ time:"7:00PM"},{ time:"7:15PM"},{ time:"7:30PM"},{ time:"7:45PM"},{ time:"8:00PM"}];

@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<link href="https://www.chapelinthepines.com/wp-content/themes/photography-child/page-wedding_chapel_gazebo_banquet_hall_rental.css?vers=2.4" rel="stylesheet">
 <link href="https://www.chapelinthepines.com/wp-content/uploads/siteground-optimizer-assets/siteground-optimizer-combined-styles-e6e8cafac107d0596f46cf48984070cb.min.css" rel="stylesheet">
+<link href="page-wedding_chapel_gazebo_banquet_hall_rental.css?vers=1.0" rel="stylesheet">
 
 
 <body>
@@ -21,6 +21,33 @@
                             <option value="-1">Choose...</option>
                             <option v-for="package in packages">{{ package.menu_label }}</option>
                          </select>
+                      </div>
+
+                      <div id="form" v-if="show_form">
+
+                          <h3><a v-bind:href="package.url">{{summaries[0]}}</a></h3>
+                          <h4>Please fill out the form below in the order they appear. Try not to use autocomeplte as it may cause problems.</h4>
+
+                          <div class="package_summary" v-html="package.summary"></div>
+
+                          <div class="tier" v-for="tier in package.tier">
+                            <strong>{{ tier.label }}</strong>
+                            <div v-for="option in tier.options">
+                              <input type="radio" name="option" v-bind:value="option.cost"> {{option.label}} (${{option.cost}})
+                            </div>
+                          </div>
+
+
+                          <h3>Agreed Date</h3>
+                          <input type="text" name="wedding_date" id="wedding_date">
+
+                          <h3>Agreed Ceremony Start Time</h3>
+                          <small> Please select an agreed ceremony start time, typically 5:15pm: </small>
+                          <select id="wedding_time">
+                            <option>Choose a timeslot...</option>
+                            <option v-for="timeslot in timeslots">{{timeslot.time}}</option>
+                          </select>
+
                       </div>
 
 

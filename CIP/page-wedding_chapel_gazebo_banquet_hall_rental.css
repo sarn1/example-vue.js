@@ -1,0 +1,51 @@
+input[type=text],
+input[type=password],
+input[type=email],
+input[type=url],
+input[type=date],
+input[type=tel],
+select,
+textarea {
+    border-bottom: none;
+    background-color: #d9d9d9;
+    display: block;
+    width: 100%!important;
+    max-width: 600px!important
+}
+
+h3 {
+    margin-top: 15px
+}
+
+#form .tier {
+  margin-top: 15px;
+}
+
+#form h3 {
+  margin-top: 25px;
+}
+
+.reserve_results {
+    margin: 25px 0
+}
+
+.reserve_results small,
+.process_results {
+    background-color: #d2d2d2;
+    padding: 15px;
+    width: 100%;
+    max-width: 400px;
+    display: block
+}
+
+/*
+.process_results .summary {
+    font-style: italic
+}
+
+.process_results .summary br {
+    display: none;
+    padding: 0;
+    margin: 0
+}
+*/

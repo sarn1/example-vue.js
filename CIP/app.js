@@ -7,7 +7,8 @@ new Vue({
     total: 0,
     deposit: 0,
     package: undefined,
-    show_form: false
+    show_form: false,
+    timeslots: TimeSlots,
   },
    methods: {
      init: function() {
@@ -26,11 +27,27 @@ new Vue({
 
          this.summaries.push("Selection: " + Packages[e.target.options.selectedIndex-1].menu_label);
          console.log("Menu Selected Index: " + e.target.options.selectedIndex);
-
+         this.package = Packages[e.target.options.selectedIndex-1].obj
          this.show_form = true;
+         console.log(this.package);
+         console.log(this.timeslots);
        }
-
      }
+   }
+});
+
+// Vue.component('timeslots', {
+//   data: function () {
+//     return {
+//       count: 0
+//     }
+//   },
+//   template: '<button v-on:click="count++">You clicked me {{ count }} times.</button>'
+// });
+// new Vue({ el: '#wedding_time' });
+
+
+
   //   increment: function(post){
   //     post.votes += 1;
   //   },
@@ -47,7 +64,7 @@ new Vue({
   //     this.title = '';
   //     this.summary = '';
   //   }
-   },
+  //},
   // computed: {
   //   orderedList: function(){
   //     return this.posts.sort((currentPost,nextPost) =>{
@@ -55,7 +72,8 @@ new Vue({
   //     });
   //   }
   // }
-});
+
+  // Define a new component called button-counter
 
 
 
