@@ -30,7 +30,7 @@ new Vue({
          this.package = Packages[e.target.options.selectedIndex-1].obj
          this.show_form = true;
          console.log(this.package);
-         console.log(this.timeslots);
+         console.log(this.package.show_bricks);
        }
      }
    }

@@ -15,21 +15,24 @@
              <div class="inner">
                 <div style="margin:auto;width:100%">
                    <section class="reserve">
+
+                      <!-- option menu -->
                       <div id="menu_section">
                          <h3>Select a wedding package:</h3>
-                        <select v-on:change="menu_selection">
+                         <select v-on:change="menu_selection">
                             <option value="-1">Choose...</option>
                             <option v-for="package in packages">{{ package.menu_label }}</option>
                          </select>
                       </div>
 
                       <div id="form" v-if="show_form">
-
+                          <!-- name & summary -->
                           <h3><a v-bind:href="package.url">{{summaries[0]}}</a></h3>
                           <h4>Please fill out the form below in the order they appear. Try not to use autocomeplte as it may cause problems.</h4>
 
                           <div class="package_summary" v-html="package.summary"></div>
 
+                          <!-- pricing -->
                           <div class="tier" v-for="tier in package.tier">
                             <strong>{{ tier.label }}</strong>
                             <div v-for="option in tier.options">
@@ -37,10 +40,11 @@
                             </div>
                           </div>
 
-
+                          <!-- date -->
                           <h3>Agreed Date</h3>
                           <input type="text" name="wedding_date" id="wedding_date">
 
+                          <!-- start time -->
                           <h3>Agreed Ceremony Start Time</h3>
                           <small> Please select an agreed ceremony start time, typically 5:15pm: </small>
                           <select id="wedding_time">
@@ -48,11 +52,104 @@
                             <option v-for="timeslot in timeslots">{{timeslot}}</option>
                           </select>
 
+                          <!-- extras -->
+                          <div id="extras">
+                            <h3>Extras</h3>
+                            <ul id="extra_options">
+                              <li v-for="extra in package.extras">
+                                <template v-if="extra.cost != '0'">
+                                  <input type="checkbox" v-bind:value="extra.cost"> {{extra.label}} (${{extra.cost}})
+                                </template>
+                                <template v-else>
+                                  <input type="checkbox" v-bind:value="extra.cost" checked="checked" disabled="disabled"> {{extra.label}} (${{extra.cost}})
+                                </template>
+                              </li>
+                            </ul>
+                          </div>
 
-                          <!-- if show_bricks -->
+                        <!-- if show_bricks -->
+                        <div id="optional_brick_container" v-show="package.show_bricks">
+                          <h3>Buy A Brick</h3>
+                          <p>Buy a brick to celebrate an important event in your life, whether it is your wedding day, anniversary, birthday, or memory of someone, etc. you choose what you want engraved on your brick. Your brick will be set into the winding brick pathway, or purchase an extra brick for your home. Each brick is 4" x 8"</p>
+                          <p>Please indicate what you want on your brick, use up to 3 lines, 14 characters per line.</p>
+                          <p>Row #1 <small><em>Example: Anderson</em></small></p>
+                          <input type="text" name="extra_brick_row1" id="extra_brick_row1" maxlength="14">
+                          <p> Row #2 <small><em>Example: John &amp; Sandy</em></small></p>
+                          <input type="text" name="extra_brick_row2" id="extra_brick_row2" maxlength="14">
+                          <p> Row #3 <small><em>Example: 5/10/2016</em></small></p>
+                          <input type="text" name="extra_brick_row3" id="extra_brick_row3" maxlength="14">
+                        </div>
 
-                          <!-- list out extras -->
+                        <!-- contact info -->
+                        <h3>Contact Information</h3>
+                        <label>Bride First & Last Name* </label>
+                        <input name="bride_name" type="text" id="bride_name">
 
+                        <label>Groom First & Last Name* </label>
+                        <input name="groom_name" type="text" id="groom_name">
+
+                        <label>Bride Cell phone* </label>
+                        <input name="bride_phone" type="text" id="bride_phone">
+
+                        <label>Groom Cell Phone* </label>
+                        <input name="groom_phone" type="text" id="groom_phone">
+
+                        <label>Bride Email </label>
+                        <input name="bride_email" type="text" id="bride_email">
+
+                        <label>Groom Email </label>
+                        <input name="groom_email" type="text" id="groom_email">
+
+                        <label>Bride Address</label>
+                        <input type="text" name="bride_address" />
+
+                        <label>Groom Address</label>
+                        <input type="text" name="groom_address">
+
+                        <!-- payment -->
+                        <h3>Payment</h3>
+                        <p>{{package.payments.summary}}</p>
+                        <ul>
+                          <li v-for="option in package.payments.options">
+                            <input type="radio" v-bind:value="option.amount"> {{option.label}}
+                          </li>
+                          <li>
+                            <input type="radio" name="payment"> Custom or full amount, enter amount below (<small>Note: Remaining balance due 30 days before wedding.</small>):
+                            <input type="text">
+                          </li>
+                        </ul>
+
+                        <!-- comments -->
+                        <h3>Comments</h3>
+                        <textarea name="comments"></textarea>
+
+                        <!-- terms -->
+                        <template v-if="package.terms">
+                          <h3>Terms</h3>
+                          <p>Deposit and or all payments will be applied in full towards the total fees. Deposit and all payments are therefore non-refundable and non-transferable. If package is reserved online, there are no automatic payments as credit card/paypal information is not stored online. You either may:</p>
+                          <ol type="1">
+                            <li>pay your remaining balance in U.S. funds by check, money order, cashier's check, or cash at that time, OR</li>
+                            <li>proceed to make a payment below.</li>
+                          </ol>
+                          <p>The balance of the contract is due 30 days before the event. If the remaining balance is not paid 30 days before the ceremony, the reservation and services are subject to cancellation at Chapel in the Pines' sole discretion.</p>
+                          <p>This contract is for the use of the venue and the grounds for the allotted time. Any party staying beyond the allotted time period will be charged accordingly. We are not responsible for accidents or theft.</p>
+                          <p>I give my permission to use photographs of my wedding to use in all forms of media for promotional purposes.</p>
+
+                          <div id="pdf_agreement_link" v-show="package.terms_pdf">
+                            <p><a href="/wp-content/uploads/2019/07/Chapel-in-the-Pines-Wedding-and-Banquet-Center-Terms.pdf" target="_blank">(Download PDF of agreement terms, banquet hall, for paying online)</a></p>
+                            <p>Click this <a href="/banquet-hall-terms-conditions/" target="_blank">link</a> to view agreement terms when reserving the banquet hall.</p>
+                          </div>
+
+                          <p><input type="checkbox" value="acknowledge" name="acknowledge" id="acknowledge"> By clicking here you acknowledge you have read and agree to the Chapel in the Pines terms and conditions.</p>
+                        </template>
+
+                        <!-- anti-spam -->
+                        <h3>Anti-Spam: WHAT IS THE CAPITAL OF ILLINOIS (ANSWER WITH ALL LOWERCASE AND NO SPACES):</h3>
+                        <input type="text" name="bumper" class="bumper">
+
+                        <p>We look forward to hosting your wedding! Please contact us to ensure date and time is available before proceeding. Clicking 'Proceed To Payment' will take you to the secure payment page. You may use PayPal, debit, or credit cards.</p>
+                        <input type="submit" value="Proceed To Payment">
+                        <p><small> Deposit and or all payments will be applied in full towards the total fees. Deposit and all payments are therefore non-refundable and non-transferable. If package is reserved online, there are no future automatic payments as credit card/PayPal information is not stored online. You may make future payments on our website.</small></p>
                       </div>
 
 
@@ -117,7 +214,7 @@
                       -->
 
 
-                      <div class="reserve_results">
+                      <div id="reserve_results">
                          <hr>
                          <br>
                          <small>

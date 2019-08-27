@@ -6,11 +6,11 @@ let Package1 = {
         label: "0-2 Guests",
         options: [
           {
-            label: "Friday–Sunday",
+            label: "Friday-Sunday",
             cost: 350
           },
           {
-            label: "Monday–Thursday",
+            label: "Monday-Thursday",
             cost: 250
           }
         ]
@@ -19,11 +19,11 @@ let Package1 = {
         label: "3-12 Guests",
         options: [
           {
-            label: "Friday–Sunday",
+            label: "Friday-Sunday",
             cost: 500
           },
           {
-            label: "Monday–Thursday",
+            label: "Monday-Thursday",
             cost: 400
           }
         ]
@@ -32,11 +32,11 @@ let Package1 = {
         label: "13-25 Guests",
         options: [
           {
-            label: "Friday–Sunday",
+            label: "Friday-Sunday",
             cost: 700
           },
           {
-            label: "Monday–Thursday",
+            label: "Monday-Thursday",
             cost: 550
           }
         ]
@@ -64,7 +64,7 @@ let Package1 = {
         cost: 40
       }
     ],
-    payment: {
+    payments: {
       summary: "For other deposit amount agreed upon, remaining balance, or payment towards package. Please note in comments box.  Remaining balance due 30 days before wedding.",
       options: [
         {
@@ -99,11 +99,11 @@ let Package2 = {
         label: "Full Wedding Ceremony Silver Package",
         options: [
           {
-            label: "Friday–Sunday",
+            label: "Friday-Sunday",
             cost: 1000
           },
           {
-            label: "Monday–Thursday",
+            label: "Monday-Thursday",
             cost: 700
           }
         ]
@@ -119,7 +119,7 @@ let Package2 = {
         cost: 40
       }
     ],
-    payment: {
+    payments: {
       summary: "If fee is less than $500, the full amount of the package is due at time of reservation.  Remaining balance due 30 days before wedding.",
       options: [
         {
@@ -149,7 +149,7 @@ let Package3 = {
             cost: 7400
           },
           {
-            label: "Monday–Thursday",
+            label: "Monday-Thursday",
             cost: 5700
           }
         ]
@@ -166,7 +166,7 @@ let Package3 = {
             cost: 6400
           },
           {
-            label: "Monday–Thursday",
+            label: "Monday-Thursday",
             cost: 5700
           }
         ]
@@ -184,9 +184,13 @@ let Package3 = {
       {
         label: "Candelabras In Chapel",
         cost: 40
+      },
+      {
+        label: "Personalized Brick (included)",
+        cost: 0
       }
     ],
-    payment: {
+    payments: {
       summary: "For other deposit amount agreed upon, remaining balance, or payment towards package. Please note in comments box.",
       options: [
         {
@@ -257,7 +261,7 @@ let Package4 = {
         cost: 750
       },
     ],
-    payment: {
+    payments: {
       summary: "For other deposit amount agreed upon, remaining balance, or payment towards package. Please note in comments box.",
       options: [
         {
@@ -284,7 +288,7 @@ let Package5 = {
     summary: "",
     tier : [],
     extras : [],
-    payment: {
+    payments: {
       summary: "For other deposit amount agreed upon, remaining balance, or payment towards package. Please note in comments box.",
       options: []
     },
@@ -308,7 +312,7 @@ const Packages = [
   },
   {
     id: 3,
-    menu_label: "OPTION 3: Pearl Wedding Ceremony &amp; Reception Package (Up to 150 Guests)",
+    menu_label: "OPTION 3: Pearl Wedding Ceremony & Reception Package (Up to 150 Guests)",
     obj: Package3
   },
   {

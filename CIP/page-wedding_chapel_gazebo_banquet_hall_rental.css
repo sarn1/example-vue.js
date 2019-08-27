@@ -25,17 +25,37 @@ h3 {
   margin-top: 25px;
 }
 
-.reserve_results {
+#form label {
+  margin-top: 5px;
+}
+
+#form textarea {
+  width: 600px;
+  height: 200px;
+}
+
+#form ul {
+  list-style: none;
+}
+
+#form ol {
+  padding-left: 25px;
+}
+
+#reserve_results {
     margin: 25px 0
 }
 
-.reserve_results small,
-.process_results {
+#reserve_results small {
     background-color: #d2d2d2;
     padding: 15px;
     width: 100%;
     max-width: 400px;
     display: block
+}
+
+#reserve_results ul {
+  padding-left: 25px;
 }
 
 /*
