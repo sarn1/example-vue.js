@@ -27,7 +27,7 @@
 
                       <div id="form" v-if="show_form">
                           <!-- name & summary -->
-                          <h3><a v-bind:href="package.url">{{summaries[0]}}</a></h3>
+                          <h3><a v-bind:href="package.url">{{cart.summaries[0]}}</a></h3>
                           <h4>Please fill out the form below in the order they appear. Try not to use autocomeplte as it may cause problems.</h4>
 
                           <div class="package_summary" v-html="package.summary"></div>
@@ -222,7 +222,7 @@
                             <br>
                             Summary:
                             <ul>
-                              <li v-for="summary in summaries">{{ summary }}</li>
+                              <li v-for="summary in cart.summaries">{{ summary }}</li>
                             </ul>
                             <br>
                          </small>

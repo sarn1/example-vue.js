@@ -1,34 +1,86 @@
+let Entries = {
+  date: "",
+  start_time: "",
+  bride_name: "",
+  groom_name: "",
+  bride_phone: "",
+  groom_phone: "",
+  bride_email: "",
+  groom_email: "",
+  bride_addr: "",
+  groom_addr: "",
+  custom_or_full_amt: "",
+  comments: "",
+  brick_1: "",
+  brick_2: "",
+  brick_3: "",
+  Init: function () {
+    this.date = "";
+    this.start_time = "";
+    this.bride_name = "";
+    this.groom_name = "";
+    this.bride_phone = "";
+    this.groom_phone = "";
+    this.bride_email = "";
+    this.room_email = "";
+    this.bride_addr = "";
+    this.groom_addr = "";
+    this.custom_or_full_amt = "";
+    this.comments = "";
+    this.brick_1 = "";
+    this.brick_2 = "";
+    this.brick_3 = "";
+  },
+  validate: function () {
+    // return true if all fields validate
+  }
+}
+
+let Cart = {
+  summaries: [],
+  total: 0,
+  deposit: 0,
+  selection: -1,
+  entries: Entries,
+  Init: function () {
+    this.selection = -1;
+    this.summaries = [];
+    this.total = 0;
+    this.deposit = 0;
+    this.entries.Init();
+  },
+  AddSelection: function (e) {
+    this.selection = e.target.options.selectedIndex;
+    this.summaries.push("Selection: " + Packages[e.target.options.selectedIndex-1].menu_label);
+  }
+
+}
+
 new Vue({
   el: '#app',
   data: {
     packages: Packages,
-    selection: -1,
-    summaries: [],
-    total: 0,
-    deposit: 0,
+    cart: Cart,
     package: undefined,
     show_form: false,
     timeslots: TimeSlots,
   },
    methods: {
      init: function() {
-       this.selection= -1,
-       this.summaries= [],
-       this.total= 0,
-       this.deposit= 0,
-       this.package= undefined,
-       this.show_form = false
+       this.package= undefined;
+       this.show_form = false;
+       this.cart.Init();
      },
      menu_selection: function(e) {
        this.init();
 
        if (e.target.options.selectedIndex-1 >= 0) {
-         this.selection = e.target.options.selectedIndex;
-
-         this.summaries.push("Selection: " + Packages[e.target.options.selectedIndex-1].menu_label);
-         console.log("Menu Selected Index: " + e.target.options.selectedIndex);
+         this.cart.AddSelection(e);
          this.package = Packages[e.target.options.selectedIndex-1].obj
          this.show_form = true;
+
+         // console debugs
+         console.log("Menu Selected Index: " + e.target.options.selectedIndex);
          console.log(this.package);
          console.log(this.package.show_bricks);
        }

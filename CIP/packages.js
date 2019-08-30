@@ -86,11 +86,11 @@ let Package2 = {
         label: "Full Wedding Ceremony Gold Package",
         options: [
           {
-            label: "Friday–Sunday",
+            label: "Friday-Sunday",
             cost: 1200
           },
           {
-            label: "Monday–Thursday",
+            label: "Monday-Thursday",
             cost: 900
           }
         ]
