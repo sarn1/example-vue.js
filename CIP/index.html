@@ -19,7 +19,7 @@
                       <!-- option menu -->
                       <div id="menu_section">
                          <h3>Select a wedding package:</h3>
-                         <select v-on:change="menu_selection">
+                         <select v-on:change="vMenuSelection">
                             <option value="-1">Choose...</option>
                             <option v-for="package in packages">{{ package.menu_label }}</option>
                          </select>
@@ -27,27 +27,27 @@
 
                       <div id="form" v-if="show_form">
                           <!-- name & summary -->
-                          <h3><a v-bind:href="package.url">{{cart.summaries[0]}}</a></h3>
+                          <h3><a v-bind:href="package.url">{{cart.summaries[0].label}}</a></h3>
                           <h4>Please fill out the form below in the order they appear. Try not to use autocomeplte as it may cause problems.</h4>
 
                           <div class="package_summary" v-html="package.summary"></div>
 
                           <!-- pricing -->
-                          <div class="tier" v-for="tier in package.tier">
-                            <strong>{{ tier.label }}</strong>
-                            <div v-for="option in tier.options">
-                              <input type="radio" name="option" v-bind:value="option.cost"> {{option.label}} (${{option.cost}})
+                          <div class="tier" v-for="(v,i) in package.tier">
+                            <strong>{{ v.label }}</strong>
+                            <div v-for="(v2,i2) in v.options">
+                              <input type="radio" name="tier" :data-label="vConcatTierLabel(v2.label,v2.cost,v.label)" :data-value="v2.cost" v-on:change="vAddTier"> {{v2.label}} (${{v2.cost}})
                             </div>
                           </div>
 
                           <!-- date -->
                           <h3>Agreed Date</h3>
-                          <input type="text" name="wedding_date" id="wedding_date">
+                          <input type="date" name="wedding_date" v-model="cart.entries.date">
 
                           <!-- start time -->
                           <h3>Agreed Ceremony Start Time</h3>
                           <small> Please select an agreed ceremony start time, typically 5:15pm: </small>
-                          <select id="wedding_time">
+                          <select v-model="cart.entries.start_time">
                             <option>Choose a timeslot...</option>
                             <option v-for="timeslot in timeslots">{{timeslot}}</option>
                           </select>
@@ -73,55 +73,55 @@
                           <p>Buy a brick to celebrate an important event in your life, whether it is your wedding day, anniversary, birthday, or memory of someone, etc. you choose what you want engraved on your brick. Your brick will be set into the winding brick pathway, or purchase an extra brick for your home. Each brick is 4" x 8"</p>
                           <p>Please indicate what you want on your brick, use up to 3 lines, 14 characters per line.</p>
                           <p>Row #1 <small><em>Example: Anderson</em></small></p>
-                          <input type="text" name="extra_brick_row1" id="extra_brick_row1" maxlength="14">
+                          <input type="text" name="extra_brick_row1" maxlength="14" v-model="cart.entries.brick_1">
                           <p> Row #2 <small><em>Example: John &amp; Sandy</em></small></p>
-                          <input type="text" name="extra_brick_row2" id="extra_brick_row2" maxlength="14">
+                          <input type="text" name="extra_brick_row2" maxlength="14" v-model="cart.entries.brick_2">
                           <p> Row #3 <small><em>Example: 5/10/2016</em></small></p>
-                          <input type="text" name="extra_brick_row3" id="extra_brick_row3" maxlength="14">
+                          <input type="text" name="extra_brick_row3" maxlength="14" v-model="cart.entries.brick_3">
                         </div>
 
                         <!-- contact info -->
                         <h3>Contact Information</h3>
                         <label>Bride First & Last Name* </label>
-                        <input name="bride_name" type="text" id="bride_name">
+                        <input name="bride_name" type="text" v-model="cart.entries.bride_name">
 
                         <label>Groom First & Last Name* </label>
-                        <input name="groom_name" type="text" id="groom_name">
+                        <input name="groom_name" type="text" v-model="cart.entries.groom_name">
 
                         <label>Bride Cell phone* </label>
-                        <input name="bride_phone" type="text" id="bride_phone">
+                        <input name="bride_phone" type="text" v-model="cart.entries.bride_phone">
 
                         <label>Groom Cell Phone* </label>
-                        <input name="groom_phone" type="text" id="groom_phone">
+                        <input name="groom_phone" type="text" v-model="cart.entries.groom_phone">
 
                         <label>Bride Email </label>
-                        <input name="bride_email" type="text" id="bride_email">
+                        <input name="bride_email" type="text" v-model="cart.entries.bride_email">
 
                         <label>Groom Email </label>
-                        <input name="groom_email" type="text" id="groom_email">
+                        <input name="groom_email" type="text" v-model="cart.entries.groom_email">
 
                         <label>Bride Address</label>
-                        <input type="text" name="bride_address" />
+                        <input type="text" name="bride_address" v-model="cart.entries.bride_addr" />
 
                         <label>Groom Address</label>
-                        <input type="text" name="groom_address">
+                        <input type="text" name="groom_address" v-model="cart.entries.groom_addr">
 
                         <!-- payment -->
                         <h3>Payment</h3>
                         <p>{{package.payments.summary}}</p>
-                        <ul>
+                        <ul >
                           <li v-for="option in package.payments.options">
                             <input type="radio" v-bind:value="option.amount"> {{option.label}}
                           </li>
                           <li>
                             <input type="radio" name="payment"> Custom or full amount, enter amount below (<small>Note: Remaining balance due 30 days before wedding.</small>):
-                            <input type="text">
+                            <input type="text" v-model="cart.entries.custom_or_full_amt">
                           </li>
                         </ul>
 
                         <!-- comments -->
                         <h3>Comments</h3>
-                        <textarea name="comments"></textarea>
+                        <textarea name="comments" v-model="cart.entries.comments"></textarea>
 
                         <!-- terms -->
                         <template v-if="package.terms">
@@ -145,10 +145,22 @@
 
                         <!-- anti-spam -->
                         <h3>Anti-Spam: WHAT IS THE CAPITAL OF ILLINOIS (ANSWER WITH ALL LOWERCASE AND NO SPACES):</h3>
-                        <input type="text" name="bumper" class="bumper">
+                        <input type="text" name="bumper" v-model="cart.entries.bumper">
 
                         <p>We look forward to hosting your wedding! Please contact us to ensure date and time is available before proceeding. Clicking 'Proceed To Payment' will take you to the secure payment page. You may use PayPal, debit, or credit cards.</p>
                         <input type="submit" value="Proceed To Payment">
+
+                        <!-- errors -->
+                        <div v-if="errors.length" class="error">
+                          <h5>We're sorry</h5>
+                          <p>You're entry could not be sumbmitted due to the following issues.  Please go back and fix the entries:</p>
+                          <ul>
+                            <li>Example 1</li>
+                            <li>Example 2</li>
+                          </ul>
+
+                        </div>
+
                         <p><small> Deposit and or all payments will be applied in full towards the total fees. Deposit and all payments are therefore non-refundable and non-transferable. If package is reserved online, there are no future automatic payments as credit card/PayPal information is not stored online. You may make future payments on our website.</small></p>
                       </div>
 
@@ -222,7 +234,7 @@
                             <br>
                             Summary:
                             <ul>
-                              <li v-for="summary in cart.summaries">{{ summary }}</li>
+                              <li v-for="summary in cart.summaries">{{ summary.label }}</li>
                             </ul>
                             <br>
                          </small>

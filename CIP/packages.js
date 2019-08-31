@@ -228,7 +228,7 @@ let Package4 = {
             cost: 7000
           },
           {
-            label: "Monday–Thursday",
+            label: "Monday-Thursday",
             cost: 5300
           }
         ]
@@ -245,7 +245,7 @@ let Package4 = {
             cost: 6000
           },
           {
-            label: "Monday–Thursday",
+            label: "Monday-Thursday",
             cost: 5300
           }
         ]
