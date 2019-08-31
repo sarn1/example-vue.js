@@ -127,50 +127,18 @@ new Vue({
    },
    vSubmit : function (e) {
      // validate form
+
+     // ajax process
+
+     //open payment page
+   },
+
+   // private
+   _vValidate : function (e) {
+
    },
  }
 });
-
-// Vue.component('timeslots', {
-//   data: function () {
-//     return {
-//       count: 0
-//     }
-//   },
-//   template: '<button v-on:click="count++">You clicked me {{ count }} times.</button>'
-// });
-// new Vue({ el: '#wedding_time' });
-
-
-
-  //   increment: function(post){
-  //     post.votes += 1;
-  //   },
-  //   decrement: function(post){
-  //     post.votes -= 1;
-  //   },
-  //   createNew: function(){
-  //     this.posts.push({
-  //       title: this.title,
-  //       summary: this.summary,
-  //       votes: 0,
-  //       thumbnail: 'https://placeimg.com/75/75/any'
-  //     });
-  //     this.title = '';
-  //     this.summary = '';
-  //   }
-  //},
-  // computed: {
-  //   orderedList: function(){
-  //     return this.posts.sort((currentPost,nextPost) =>{
-  //       return nextPost.votes - currentPost.votes;
-  //     });
-  //   }
-  // }
-
-  // Define a new component called button-counter
-
-
 
 /*
   // TODO:
