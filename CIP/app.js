@@ -126,26 +126,59 @@ new Vue({
 
    },
    vSubmit : function (e) {
-     console.log("submit");
-
-     // checkboxes - https://stackoverflow.com/questions/45559589/how-to-determine-whether-a-checkbox-is-checked-or-not-in-vue-js
-     // https://itsolutionstuff.com/post/vue-axios-post-request-exampleexample.html
-
-     axios.post('http://localhost:8000/yourPostApi', {
-                    test: this.show_form
-                })
-                .then(function (response) {
-                    //currentObj.output = response.data;
-                })
-                .catch(function (error) {
-                    //currentObj.output = error;
-                });
-
+     
      // validate form
+     this.errors = [];
 
-     // ajax process
+     // check mandatory fields
+     if (this.cart.entries.tier == "") {
+       this.errors.push("Please select a package tier.");
+     }
 
-     //open payment page
+     if (this.cart.entries.bride_name == "") {
+       this.errors.push("Bride first and last name is required.");
+     }
+
+     if (this.cart.entries.groom_name == "") {
+       this.errors.push("Groom first and last name is required.");
+     }
+
+     if (this.cart.entries.bride_phone == "") {
+       this.errors.push("Bride phone number is required.");
+     }
+
+     if (this.cart.entries.groom_phone == "") {
+       this.errors.push("Groom phone name is required.");
+     }
+
+     if (!this.$refs.acknowledge.checked) {
+       this.errors.push("You must agree to the terms before proceeding.");
+     }
+
+     if (this.cart.entries.bumper.toUpperCase() != "SPRINGFIELD") {
+       this.errors.push("The anti-spam answer is incorrect, please try again.");
+     }
+
+     // payment needs to be enforced
+
+
+     if (! this.errors.length) {
+       console.log(this.errors.length+"no errors");
+
+       // ajax process
+       // axios.post('http://localhost:8000/yourPostApi', {
+       //      test: this.show_form
+       //  })
+       //  .then(function (response) {
+       //      //currentObj.output = response.data;
+       //  })
+       //  .catch(function (error) {
+       //      //currentObj.output = error;
+       //  });
+
+       //open payment page
+     }
+
    },
 
    // private

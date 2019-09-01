@@ -140,7 +140,7 @@
                             <p>Click this <a href="/banquet-hall-terms-conditions/" target="_blank">link</a> to view agreement terms when reserving the banquet hall.</p>
                           </div>
 
-                          <p><input type="checkbox" value="acknowledge" name="acknowledge" id="acknowledge"> By clicking here you acknowledge you have read and agree to the Chapel in the Pines terms and conditions.</p>
+                          <p><input type="checkbox" value="acknowledge" name="acknowledge" id="acknowledge" ref="acknowledge"> By clicking here you acknowledge you have read and agree to the Chapel in the Pines terms and conditions.</p>
                         </template>
 
                         <!-- anti-spam -->
@@ -155,76 +155,13 @@
                           <h5>We're sorry</h5>
                           <p>You're entry could not be sumbmitted due to the following issues.  Please go back and fix the entries:</p>
                           <ul>
-                            <li>Example 1</li>
-                            <li>Example 2</li>
+                            <li v-for="error in errors">{{ error }}</li>
                           </ul>
 
                         </div>
 
                         <p><small> Deposit and or all payments will be applied in full towards the total fees. Deposit and all payments are therefore non-refundable and non-transferable. If package is reserved online, there are no future automatic payments as credit card/PayPal information is not stored online. You may make future payments on our website.</small></p>
                       </div>
-
-
-                      <!--
-
-                            <div id="included_brick_option">
-                               <hr>
-                               <h3>Included Options:</h3>
-                               Personalized Brick
-                               <div class="included_brick_section"> Your package includes a brick to celebrate an important event in your life, whether it is your wedding day, anniversary, birthday, or memory of someone, etc. you choose what you want engraved on your brick. Your brick will be set into the winding brick pathway, or purchase an extra brick for your home. Each brick is 4" x 8"<br> Please indicate what you want on your brick, use up to 3 lines, 14 characters per line. <br> <br> Row 1 <small><em>(Prefer up to 14 characters, 20 max) Groom's Last Name</em></small> <input type="text" name="included_brick_row1" id="included_brick_row1" maxlength="14"> <br> Row #2 <small><em>(Prefer up to 14 characters, 20 max) Groom's First Name &amp; Bride's First Name</em></small> <input type="text" name="included_brick_row2" id="included_brick_row2" maxlength="14"> <br> Row #3 <small><em>(Month, Day, Year) Example 05/15/2017</em></small> <input type="text" name="included_brick_row3" id="included_brick_row3" maxlength="14"> <br></div>
-                            </div>
-                            <hr>
-                            <div id="extras_options">
-                               <h3>Extras</h3>
-                               <div id="ceremony_music_section"> <input type="checkbox" name="extras[]" value="75|Ceremony Music"> Ceremony Music - Elopement or Small Private Wedding only ($75) <br></div>
-                               <div id="bridal_cottage_section"> <input type="checkbox" name="extras[]" value="75|Bridal Cottage"> Bridal Cottage, Bride only can change on premises, available 30 minutes before ceremony ($75) <br></div>
-                               <div id="aisle_section"> <input type="checkbox" name="extras[]" value="40|Aisle Runner"> Aisle Runner In Chapel ($40)<br></div>
-                               <div id="optional_brick_container">
-                                  <input type="checkbox" name="extras[]" value="75|Personalized Brick" onclick="if (!window.__cfRLUnblockHandlers) return false; javascript: toggle_brick_section();" id="chkPersonalizedBrick"> Personalized Brick ($75)<br>
-                                  <div class="brick_section"> <br> Buy a brick to celebrate an important event in your life, whether it is your wedding day, anniversary, birthday, or memory of someone, etc. you choose what you want engraved on your brick. Your brick will be set into the winding brick pathway, or purchase an extra brick for your home. Each brick is 4" x 8"<br> Please indicate what you want on your brick, use up to 3 lines, 14 characters per line. <br> <br> Row #1 <small><em>Example: Anderson</em></small> <input type="text" name="extra_brick_row1" id="extra_brick_row1" maxlength="14"> <br> Row #2 <small><em>Example: John &amp; Sandy</em></small> <input type="text" name="extra_brick_row2" id="extra_brick_row2" maxlength="14"> <br> Row #3 <small><em>Example: 5/10/2016</em></small> <input type="text" name="extra_brick_row3" id="extra_brick_row3" maxlength="14"> <br> <br></div>
-                               </div>
-                               <div id="photobooth_section"><input type="checkbox" name="extras[]" value="750|Photobooth"> Photobooth ($750)<br></div>
-                               <div id="candelabras_section"><input type="checkbox" name="extras[]" value="40|Candelabras"> Candelabras In Chapel ($40)<br></div>
-                               <div id="custom_extra_amount_container"> <input type="checkbox" name="extras[]" value="0|Custom Extra Amount" id="extra_amount_chk" onclick="if (!window.__cfRLUnblockHandlers) return false; checkExtraAmount('CHECKBOX')"> Other agreed upon amount of services, enter cost for these extra services below: <input type="text" name="extra_amount" id="extra_amount_txt" onkeyup="if (!window.__cfRLUnblockHandlers) return false; jQuery('#extra_amount_chk').val(jQuery('#extra_amount_txt').val()+'|Custom Extra Amount');" onblur="if (!window.__cfRLUnblockHandlers) return false; checkExtraAmount('TEXTBOX')" autocomplete="off" readonly="" onclick="if (!window.__cfRLUnblockHandlers) return false; extra_amount_readonly_off()"></div>
-                               <br>
-                               <hr>
-                            </div>
-                            <h3>Contact Information</h3>
-                            Bride First &amp; Last Name* <input name="bride_name" type="text" id="bride_name" style="margin-right:50px;"> Groom First &amp; Last Name* <input name="groom_name" type="text" id="groom_name"> Bride Cell phone* <input name="bride_phone" type="text" id="bride_phone"> Groom Cell Phone* <input name="groom_phone" type="text" id="groom_phone"> Bride Email <input name="bride_email" type="text" id="bride_email"> Groom Email <input name="groom_email" type="text" id="groom_email"> Bride Address <input type="text" name="bride_address"> Groom Address <input type="text" name="groom_address"> <br>
-                            <hr>
-                            <h3>Payment</h3>
-                            <div id="deposit_elopment">  <input type="radio" name="deposit" value="0" onclick="if (!window.__cfRLUnblockHandlers) return false; checkDeposit();" id="full_deposit_rdr_elope"> Pay full package amount (If fee is less than $500, the full amount of the package is due at time of reservation)<br> <input type="radio" name="deposit" value="500" onclick="if (!window.__cfRLUnblockHandlers) return false; checkDeposit();" id="500_deposit_rdr_elope"> Pay package deposit of $500<br> <small>Note: Remaining balance due 30 days before wedding</small> <br></div>
-                            <div id="deposit_silvergold">  <input type="radio" name="deposit" value="0" onclick="if (!window.__cfRLUnblockHandlers) return false; checkDeposit();" id="full_deposit_rdr_silvergold"> Pay full package amount<br> <input type="radio" name="deposit" value="500" onclick="if (!window.__cfRLUnblockHandlers) return false; checkDeposit();" id="500_deposit_rdr_silvergold"> Pay package deposit of $500<br> <small>Note: Remaining balance due 30 days before wedding</small> <br></div>
-                            <div id="deposit_diamond">  <input type="radio" name="deposit" value="1500" onclick="if (!window.__cfRLUnblockHandlers) return false; checkDeposit();" id="1000_deposit_rdr"> Pay package deposit amount of $1,500 when more than one year from wedding date.<br> <input type="radio" name="deposit" value="3000" onclick="if (!window.__cfRLUnblockHandlers) return false; checkDeposit();" id="2000_deposit_rdr"> Pay package deposit amount of $3,000 when more than six months and nine months from wedding date. <br> <input type="radio" name="deposit" value="4500" onclick="if (!window.__cfRLUnblockHandlers) return false; checkDeposit();" id="500_deposit_rdr_diamond"> Pay package deposit amount of $4,500 when more then three months and six months from wedding date. <br></div>
-                            <div id="deposit_banquet_hall">  <input type="radio" name="deposit" value="1500" onclick="if (!window.__cfRLUnblockHandlers) return false; checkDeposit();" id="1000_deposit_rdr_banquet"> Pay package deposit amount of $1,500 when more than one year from wedding date.<br> <input type="radio" name="deposit" value="3000" onclick="if (!window.__cfRLUnblockHandlers) return false; checkDeposit();" id="2000_deposit_rdr_banquet"> Pay package deposit amount of $3,000 when more than six months and less than nine months from wedding date. <br> <input type="radio" name="deposit" value="4500" onclick="if (!window.__cfRLUnblockHandlers) return false; checkDeposit();" id="500_deposit_rdr_banquet"> Pay package deposit amount of $4,500 when more then three months and less than six months from wedding date. <br></div>
-                            <div id="deposit_make_payment"> </div>
-                            <div id="custom_deposit_container"> <input type="radio" name="deposit" value="0" id="custom_deposit_rdr" onclick="if (!window.__cfRLUnblockHandlers) return false; checkDeposit();"> Custom or full amount, enter amount below: <input type="text" name="variable_deposit_amount" id="custom_deposit_txt" onkeyup="if (!window.__cfRLUnblockHandlers) return false; javascript: jQuery('#custom_deposit_rdr').val(jQuery('#custom_deposit_txt').val()); jQuery('#custom_deposit_rdr').attr('checked','checked'); checkDeposit();" autocomplete="off"> <br> For other deposit amount agreed upon, remaining balance, or payment towards package. Please note in comments box.<br></div>
-                            <br>
-                            <hr>
-                            <h3>Comments</h3>
-                            <textarea style="width:600px; height: 200px;" name="comments"></textarea>
-                            <br>
-                            <div id="legal">
-                               Deposit and or all payments will be applied in full towards the total fees. Deposit and all payments are therefore non-refundable and non-transferable. If package is reserved online, there are no automatic payments as credit card/paypal information is not stored online. You either may: <br> &nbsp;&nbsp;&nbsp;(1) pay your remaining balance in U.S. funds by check, money order, cashier's check, or cash at that time, OR <br> &nbsp;&nbsp;&nbsp;(2) proceed to make a payment below.<br> <br> The balance of the contract is due 30 days before the event. If the remaining balance is not paid 30 days before the ceremony, the reservation and services are subject to cancellation at Chapel in the Pines' sole discretion.<br> <br> This contract is for the use of the venue and the grounds for the allotted time. Any party staying beyond the allotted time period will be charged accordingly. We are not responsible for accidents or theft.<br> I give my permission to use photographs of my wedding to use in all forms of media for promotional purposes.<br>
-                               <div id="pdf_agreement_link"> <br> <a href="/wp-content/uploads/2019/07/Chapel-in-the-Pines-Wedding-and-Banquet-Center-Terms.pdf" target="_blank">(Download PDF of agreement terms, banquet hall, for paying online)</a><br> <br></div>
-                               <input type="checkbox" value="acknowledge" name="acknowledge" id="acknowledge"> By clicking here you acknowledge you have read and agree to the Chapel in the Pines terms and conditions.<br>
-                               <div id="agree_section"> <br> Click this <a href="/banquet-hall-terms-conditions/" target="_blank">link</a> to view agreement terms when reserving the banquet hall.</div>
-                               <br>
-                            </div>
-                            <input type="text" class="bukema" value="" name="bukema">
-                            <div>
-                               <h3>Anti-Spam: WHAT IS THE CAPITAL OF ILLINOIS (ANSWER WITH ALL LOWERCASE AND NO SPACES):</h3>
-                               <input type="text" name="bumper" class="bumper">
-                               <hr>
-                            </div>
-                            <br><br>
-                            <p>We look forward to hosting your wedding! Please contact us to ensure date and time is available before proceeding. Clicking 'Proceed To Payment' will take you to the secure payment page. You may use PayPal, debit, or credit cards.</p>
-                            <br> <br> <input type="submit" value="Proceed To Payment"> <input type="hidden" name="total" id="total"> <input type="hidden" name="deposit" id="deposit"> <input type="hidden" name="summary" id="summary"> <input type="hidden" name="menu_selected" id="menu_selected"> <input type="hidden" name="type" id="type" value="RESERVATION"> <input autocomplete="false" name="hidden" type="text" style="display:none;">
-                         </form>
-                         <br> <small> Deposit and or all payments will be applied in full towards the total fees. Deposit and all payments are therefore non-refundable and non-transferable. If package is reserved online, there are no future automatic payments as credit card/PayPal information is not stored online. You may make future payments on our website. </small> <br> <br>
-                      </div>
-                      -->
-
 
                       <div id="reserve_results">
                          <hr>
@@ -245,27 +182,6 @@
           </div>
        </div>
     </div>
-
-
-    <!-- <div class="form">
-      Title: <input v-model="title" type="text">
-      Summary: <input v-model="summary" type="text">
-      <button v-on:click="createNew">Create New</button>
-    </div>
-
-    <div class="post" v-for="post in orderedList">
-      <div id="voteCounter">
-        <span v-on:click="increment(post)">+</span>
-        <span v-on:click="decrement(post)">-</span>
-        <p class="votes">Votes: {{post.votes}}</p>
-      </div>
-      <div><img v-bind:src="post.thumbnail" v-bind:alt="post.title"></div>
-      <div class="post-info">
-        <h3>{{post.title}}</h3>
-        <p>{{post.summary}}</p>
-      </div>
-    </div> -->
-
 
   </div>
 

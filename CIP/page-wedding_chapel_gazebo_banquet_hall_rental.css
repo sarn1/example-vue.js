@@ -49,6 +49,11 @@ h3 {
   color: #FFF;
 }
 
+  #form .error ul {
+    list-style: disc;
+    padding-left: 25px;
+  }
+
 #reserve_results {
     margin: 25px 0
 }
