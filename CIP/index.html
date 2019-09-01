@@ -148,7 +148,7 @@
                         <input type="text" name="bumper" v-model="cart.entries.bumper">
 
                         <p>We look forward to hosting your wedding! Please contact us to ensure date and time is available before proceeding. Clicking 'Proceed To Payment' will take you to the secure payment page. You may use PayPal, debit, or credit cards.</p>
-                        <input type="submit" value="Proceed To Payment">
+                        <input type="submit" value="Proceed To Payment" v-on:click="vSubmit">
 
                         <!-- errors -->
                         <div v-if="errors.length" class="error">
@@ -270,7 +270,7 @@
   </div>
 
 
-
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.10/vue.js"></script>
   <script src="packages.js"></script>
   <script src="app.js"></script>

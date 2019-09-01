@@ -126,6 +126,21 @@ new Vue({
 
    },
    vSubmit : function (e) {
+     console.log("submit");
+
+     // checkboxes - https://stackoverflow.com/questions/45559589/how-to-determine-whether-a-checkbox-is-checked-or-not-in-vue-js
+     // https://itsolutionstuff.com/post/vue-axios-post-request-exampleexample.html
+
+     axios.post('http://localhost:8000/yourPostApi', {
+                    test: this.show_form
+                })
+                .then(function (response) {
+                    //currentObj.output = response.data;
+                })
+                .catch(function (error) {
+                    //currentObj.output = error;
+                });
+
      // validate form
 
      // ajax process
