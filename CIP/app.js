@@ -40,14 +40,14 @@ let Entries = {
 let Cart = {
   summaries: [],
   total: 0,
-  deposit: 0,
+  payment: 0,
   selection: -1,
   entries: Entries,
   Init: function () {
     this.selection = -1;
     this.summaries = [];
     this.total = 0;
-    this.deposit = 0;
+    this.payment = 0;
     this.entries.Init();
   },
 
@@ -59,6 +59,17 @@ let Cart = {
   AddTier: function (label, value) {
     this._RemoveFromCart("TIER");
     this._AddToCart("Tier: " + label, value, "TIER");
+  },
+  AddPayment: function (label, value) {
+    this._RemoveFromCart("PAYMENT");
+
+    if (label == "") {
+      this._AddToCart("Payment: Custom or Full Amount: $" + value, value, "PAYMENT");
+    } else {
+      this._AddToCart("Payment: " + label, value, "PAYMENT");
+    }
+
+    this.payment = value;
   },
 
 
@@ -119,14 +130,37 @@ new Vue({
        // console.log(this.package.show_bricks);
      }
    },
+   vCustomAmount : function (e) {
+
+     var payment = 0;
+     var label = "";
+
+     console.log(e);
+     // toggle to the appropriate radio button depending on input
+     if (e.target.id == "custom_or_full_amt" || e.target.id == "custom_or_full_amt_rdr") {
+       document.getElementById("custom_or_full_amt_rdr").checked = true;
+       payment = parseFloat(this.cart.entries.custom_or_full_amt);
+       console.log(payment);
+       if (Number.isNaN(payment)) {
+         payment = 0;
+       }
+     } else {
+       document.getElementById("custom_or_full_amt_rdr").checked = false;
+       this.cart.entries.custom_or_full_amt = "";
+       payment = parseFloat(e.target.value);
+       label = e.target.attributes["data-label"].value;
+     }
+
+     this.cart.AddPayment(label, payment);
+   },
    vAddTier : function (e) {
      this.cart.AddTier(e.target.attributes["data-label"].value, e.target.attributes["data-value"].value);
    },
    vAddExtras : function (e) {
-
+     // to do next
    },
    vSubmit : function (e) {
-     
+
      // validate form
      this.errors = [];
 
@@ -159,8 +193,12 @@ new Vue({
        this.errors.push("The anti-spam answer is incorrect, please try again.");
      }
 
-     // payment needs to be enforced
-
+     // must have a payment and check for custom amount if selected as-if
+     if (document.getElementById("custom_or_full_amt_rdr").checked && this.cart.payment <= 0) {
+       this.errors.push("You selected full or custom payment but did not fill-in the amount.");
+     } else if (this.cart.payment <= 0) {
+       this.errors.push("You must select a payment.");
+     }
 
      if (! this.errors.length) {
        console.log(this.errors.length+"no errors");

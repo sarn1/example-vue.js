@@ -111,11 +111,11 @@
                         <p>{{package.payments.summary}}</p>
                         <ul >
                           <li v-for="option in package.payments.options">
-                            <input type="radio" v-bind:value="option.amount"> {{option.label}}
+                            <input type="radio" v-bind:value="option.amount" name="payment" v-on:change="vCustomAmount" :data-label="option.label"> {{option.label}}
                           </li>
                           <li>
-                            <input type="radio" name="payment"> Custom or full amount, enter amount below (<small>Note: Remaining balance due 30 days before wedding.</small>):
-                            <input type="text" v-model="cart.entries.custom_or_full_amt">
+                            <input type="radio" name="payment" v-on:change="vCustomAmount" id="custom_or_full_amt_rdr"> Custom or full amount, enter amount below (<small>Note: Remaining balance due 30 days before wedding.</small>):
+                            <input type="number" v-model="cart.entries.custom_or_full_amt" id="custom_or_full_amt" v-on:change="vCustomAmount">
                           </li>
                         </ul>
 
