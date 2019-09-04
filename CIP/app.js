@@ -64,14 +64,19 @@ let Cart = {
     this._RemoveFromCart("PAYMENT");
 
     if (label == "") {
-      this._AddToCart("Payment: Custom or Full Amount: $" + value, value, "PAYMENT");
+      this._AddToCart("Payment: Custom or Full Amount: $" + value, 0, "PAYMENT");
     } else {
-      this._AddToCart("Payment: " + label, value, "PAYMENT");
+      this._AddToCart("Payment: " + label, 0, "PAYMENT");
     }
 
     this.payment = value;
   },
-
+  AddExtras: function (label, value) {
+    this._AddToCart("Extra: " + label + " ($" + value + ")", value, "EXTRA-"+label.toUpperCase());
+  },
+  RemoveExtras: function (label, value) {
+    this._RemoveFromCart("EXTRA-"+label.toUpperCase());
+  },
 
   // private
   _AddToCart (label, value, type) {
@@ -156,8 +161,13 @@ new Vue({
    vAddTier : function (e) {
      this.cart.AddTier(e.target.attributes["data-label"].value, e.target.attributes["data-value"].value);
    },
-   vAddExtras : function (e) {
-     // to do next
+   vUpdateExtras : function (e) {
+     if (e.target.checked) {
+       this.cart.AddExtras(e.target.attributes["data-label"].value, e.target.value);
+     } else {
+       this.cart.RemoveExtras(e.target.attributes["data-label"].value, e.target.value);
+     }
+
    },
    vSubmit : function (e) {
 

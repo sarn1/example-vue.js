@@ -58,10 +58,10 @@
                             <ul id="extra_options">
                               <li v-for="extra in package.extras">
                                 <template v-if="extra.cost != '0'">
-                                  <input type="checkbox" v-bind:value="extra.cost"> {{extra.label}} (${{extra.cost}})
+                                  <input type="checkbox" v-bind:value="extra.cost" :data-label="extra.label" v-on:change="vUpdateExtras"> {{extra.label}} (${{extra.cost}})
                                 </template>
                                 <template v-else>
-                                  <input type="checkbox" v-bind:value="extra.cost" checked="checked" disabled="disabled"> {{extra.label}} (${{extra.cost}})
+                                  <input type="checkbox" v-bind:value="extra.cost" :data-label="extra.label" checked="checked" disabled="disabled"> {{extra.label}} (${{extra.cost}})
                                 </template>
                               </li>
                             </ul>
