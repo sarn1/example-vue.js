@@ -77,6 +77,14 @@ let Cart = {
   RemoveExtras: function (label, value) {
     this._RemoveFromCart("EXTRA-"+label.toUpperCase());
   },
+  UpdateBrickRows : function (label, isChecked) {
+    this._RemoveFromCart("BRICK_INFO");
+
+    if (isChecked && label != "") {
+      this._AddToCart(label, 0, "BRICK_INFO");
+    }
+
+  },
 
   // private
   _AddToCart (label, value, type) {
@@ -169,6 +177,26 @@ new Vue({
      }
 
    },
+   vUpdateBricks : function (e) {
+     // controls when to show bricks - option 3 included plus option 1 as an extra
+     if (e.target.checked) {
+       this.package.show_bricks = true;
+       this.cart.AddExtras(e.target.attributes["data-label"].value, e.target.value);
+     } else {
+       this.cart.RemoveExtras(e.target.attributes["data-label"].value, e.target.value);
+       this.cart.UpdateBrickRows("", false);
+       this.package.show_bricks = false;
+       this.cart.entries.brick_1 = "";
+       this.cart.entries.brick_2 = "";
+       this.cart.entries.brick_3 = "";
+     }
+   },
+   vUpdateBrickRows : function (e) {
+
+     var tmp = "Brick Info:<br> - Row 1: "+this.cart.entries.brick_1+"<br> - Row 2: " + this.cart.entries.brick_2 + "<br> - Row 3: " + this.cart.entries.brick_3;
+     //var isChecked = (e.target.isChecked)
+     this.cart.UpdateBrickRows(tmp, true);
+   },
    vSubmit : function (e) {
 
      // validate form
@@ -208,6 +236,29 @@ new Vue({
        this.errors.push("You selected full or custom payment but did not fill-in the amount.");
      } else if (this.cart.payment <= 0) {
        this.errors.push("You must select a payment.");
+     }
+
+     // validate brick
+     if (this.package.show_bricks) {
+       var maxlength = 14;
+       // option 3 includes bricks, but its not madatory if they want to fill it in.
+       // option 1 and at least 1 needs to be filled in.
+       if (this.cart.selection != 3 && this.cart.entries.brick_1.length == 0 && this.cart.entries.brick_2.length == 0 && this.cart.entries.brick_3.length == 0) {
+         this.errors.push("You have selected Buy A Brick, but did not enter any custom line(s).");
+       }
+
+       if (this.cart.entries.brick_1.length > maxlength) {
+         this.errors.push("Brick Row #1 is greater than " + maxlength + " in character.");
+       }
+
+       if (this.cart.entries.brick_2.length > maxlength) {
+         this.errors.push("Brick Row #2 is greater than " + maxlength + " in character.");
+       }
+
+       if (this.cart.entries.brick_3.length > maxlength) {
+         this.errors.push("Brick Row #3 is greater than " + maxlength + " in character.");
+       }
+
      }
 
      if (! this.errors.length) {

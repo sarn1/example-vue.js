@@ -57,7 +57,10 @@
                             <h3>Extras</h3>
                             <ul id="extra_options">
                               <li v-for="extra in package.extras">
-                                <template v-if="extra.cost != '0'">
+                                <template v-if="extra.label == 'Personalized Brick'">
+                                  <input type="checkbox" v-bind:value="extra.cost" :data-label="extra.label" v-on:change="vUpdateBricks"> {{extra.label}} (${{extra.cost}})
+                                </template>
+                                <template v-else-if="extra.cost != '0'">
                                   <input type="checkbox" v-bind:value="extra.cost" :data-label="extra.label" v-on:change="vUpdateExtras"> {{extra.label}} (${{extra.cost}})
                                 </template>
                                 <template v-else>
@@ -73,11 +76,11 @@
                           <p>Buy a brick to celebrate an important event in your life, whether it is your wedding day, anniversary, birthday, or memory of someone, etc. you choose what you want engraved on your brick. Your brick will be set into the winding brick pathway, or purchase an extra brick for your home. Each brick is 4" x 8"</p>
                           <p>Please indicate what you want on your brick, use up to 3 lines, 14 characters per line.</p>
                           <p>Row #1 <small><em>Example: Anderson</em></small></p>
-                          <input type="text" name="extra_brick_row1" maxlength="14" v-model="cart.entries.brick_1">
+                          <input type="text" name="extra_brick_row1" maxlength="14" v-model="cart.entries.brick_1" v-on:change="vUpdateBrickRows">
                           <p> Row #2 <small><em>Example: John &amp; Sandy</em></small></p>
-                          <input type="text" name="extra_brick_row2" maxlength="14" v-model="cart.entries.brick_2">
+                          <input type="text" name="extra_brick_row2" maxlength="14" v-model="cart.entries.brick_2" v-on:change="vUpdateBrickRows">
                           <p> Row #3 <small><em>Example: 5/10/2016</em></small></p>
-                          <input type="text" name="extra_brick_row3" maxlength="14" v-model="cart.entries.brick_3">
+                          <input type="text" name="extra_brick_row3" maxlength="14" v-model="cart.entries.brick_3" v-on:change="vUpdateBrickRows">
                         </div>
 
                         <!-- contact info -->
@@ -171,7 +174,7 @@
                             <br>
                             Summary:
                             <ul>
-                              <li v-for="summary in cart.summaries">{{ summary.label }}</li>
+                              <li v-for="summary in cart.summaries" v-html="summary.label"></li>
                             </ul>
                             <br>
                          </small>
