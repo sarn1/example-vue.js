@@ -203,7 +203,7 @@ new Vue({
      this.errors = [];
 
      // check mandatory fields
-     if (this.cart.entries.tier == "") {
+     if (this.cart.entries.tier == "" && this.cart.selection != 5) {
        this.errors.push("Please select a package tier.");
      }
 
@@ -223,9 +223,10 @@ new Vue({
        this.errors.push("Groom phone name is required.");
      }
 
-     if (!this.$refs.acknowledge.checked) {
-       this.errors.push("You must agree to the terms before proceeding.");
-     }
+     // TO FIX.
+     // if (!this.$refs.acknowledge.checked) {
+     //   this.errors.push("You must agree to the terms before proceeding.");
+     // }
 
      if (this.cart.entries.bumper.toUpperCase() != "SPRINGFIELD") {
        this.errors.push("The anti-spam answer is incorrect, please try again.");
