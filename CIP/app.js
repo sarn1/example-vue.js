@@ -260,8 +260,7 @@ new Vue({
      if (! this.errors.length) {
        // ajax to process page.
        axios.post('process.php', {
-            name: "this is name",
-            description: "this is desc"
+            cart : this.cart
         })
         .then(function (r) {
              console.log(r.data.order_num);
@@ -290,5 +289,6 @@ new Vue({
 /*
   // TODO:
   - tier bug
+  - validate email
   - inject - https://www.chapelinthepines.com/wedding_chapel_gazebo_banquet_hall_rental/?type=PAYMENT
 */
