@@ -133,14 +133,6 @@ new Vue({
        this.cart.AddSelection(e);
        this.package = Packages[e.target.options.selectedIndex-1].obj
        this.show_form = true;
-
-      // if option 3 do buy a brick stuff
-
-
-       // console debugs
-       // console.log("Menu Selected Index: " + e.target.options.selectedIndex);
-       // console.log(this.package);
-       // console.log(this.package.show_bricks);
      }
    },
    vCustomAmount : function (e) {
@@ -223,10 +215,9 @@ new Vue({
        this.errors.push("Groom phone name is required.");
      }
 
-     // TO FIX.
-     // if (!this.$refs.acknowledge.checked) {
-     //   this.errors.push("You must agree to the terms before proceeding.");
-     // }
+     if (!document.getElementById("acknowledge").checked) {
+        this.errors.push("You must agree to the terms before proceeding.");
+     }
 
      if (this.cart.entries.bumper.toUpperCase() != "SPRINGFIELD") {
        this.errors.push("The anti-spam answer is incorrect, please try again.");
@@ -262,8 +253,24 @@ new Vue({
 
      }
 
+
+    axios.post('https://my-json-server.typicode.com/typicode/demo/posts', {
+         // name: "this is name",
+         // description: "this is desc"
+     })
+     .then(function (response) {
+         //currentObj.output = response.data;
+         console.log(response);
+     })
+     .catch(function (error) {
+       console.log(error);
+         //currentObj.output = error;
+     });
+
+
      if (! this.errors.length) {
        console.log(this.errors.length+"no errors");
+
 
        // ajax process
        // axios.post('http://localhost:8000/yourPostApi', {
