@@ -254,38 +254,28 @@ new Vue({
      }
 
 
-     axios.post('process.php', {
-          name: "this is name",
-          description: "this is desc"
-      })
-      .then(function (r) {
-           console.log(r.data.name);
-           console.log(r.data.description);
-          // var obj =  JSON.parse(r.data);
-          // console.log(obj);
-      })
-      .catch(function (error) {
-        console.log(error);
-          //currentObj.output = error;
-      });
+
 
 
      if (! this.errors.length) {
-       console.log(this.errors.length+"no errors");
+       // ajax to process page.
+       axios.post('process.php', {
+            name: "this is name",
+            description: "this is desc"
+        })
+        .then(function (r) {
+             console.log(r.data.order_num);
+             console.log(r.data.success);
+            // var obj =  JSON.parse(r.data);
+            // console.log(obj);
+        })
+        .catch(function (error) {
+          console.log(error);
+            //currentObj.output = error;
+        });
 
+        // if success, payment container
 
-       // ajax process
-       // axios.post('http://localhost:8000/yourPostApi', {
-       //      test: this.show_form
-       //  })
-       //  .then(function (response) {
-       //      //currentObj.output = response.data;
-       //  })
-       //  .catch(function (error) {
-       //      //currentObj.output = error;
-       //  });
-
-       //open payment page
      }
 
    },
@@ -299,6 +289,6 @@ new Vue({
 
 /*
   // TODO:
-  - style summary
+  - tier bug
   - inject - https://www.chapelinthepines.com/wedding_chapel_gazebo_banquet_hall_rental/?type=PAYMENT
 */
