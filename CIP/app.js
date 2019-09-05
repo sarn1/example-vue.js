@@ -254,18 +254,20 @@ new Vue({
      }
 
 
-    axios.post('https://my-json-server.typicode.com/typicode/demo/posts', {
-         // name: "this is name",
-         // description: "this is desc"
-     })
-     .then(function (response) {
-         //currentObj.output = response.data;
-         console.log(response);
-     })
-     .catch(function (error) {
-       console.log(error);
-         //currentObj.output = error;
-     });
+     axios.post('process.php', {
+          name: "this is name",
+          description: "this is desc"
+      })
+      .then(function (r) {
+           console.log(r.data.name);
+           console.log(r.data.description);
+          // var obj =  JSON.parse(r.data);
+          // console.log(obj);
+      })
+      .catch(function (error) {
+        console.log(error);
+          //currentObj.output = error;
+      });
 
 
      if (! this.errors.length) {
