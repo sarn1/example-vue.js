@@ -1,5 +1,4 @@
 <?php
-date_default_timezone_set('America/Chicago');
 header('Content-Type: application/json');
 require($_SERVER['DOCUMENT_ROOT'].'/wp-load.php');
 $_POST = json_decode(file_get_contents('php://input'), true);
@@ -14,8 +13,10 @@ $order_details = "";
 if (strtoupper($cart['entries']['bumper']) == "SPRINGFIELD") {
   $success = true;
   $order_num = get_rand_numbers(10);
+  $now = new DateTime();
+  $now->setTimezone(new DateTimeZone('America/Chicago'));
 
-  //$sendto='xxxxxxxxxx@gmail.com';
+  $sendto='xxxx@gmail.com';
 
   foreach ($cart['summaries'] as $d) {
     $order_details .= "<li>".$d['label']."</li>";
@@ -86,7 +87,7 @@ if (strtoupper($cart['entries']['bumper']) == "SPRINGFIELD") {
     </tr>
     <tr>
       <td width="300"><b>Timestamp:</b></td>
-      <td>'.date("m/d/y : h:i:s A", time()) .'</td>
+      <td>'.$now->format("m/d/y : h:i:s A") .'</td>
     </tr>
     <tr>
       <td width="300" style="font-size: 9px"><b>Additional User Info:</b></td>
@@ -102,10 +103,10 @@ if (strtoupper($cart['entries']['bumper']) == "SPRINGFIELD") {
   wp_mail($sendto, $subject, $body, $headers);
 
   //save to database
-  // $con=mysqli_connect(DB_HOST,DB_NAME,DB_PASSWORD,DB_NAME);
-  // $stmt = mysqli_prepare($con,"INSERT INTO XXXXXXXXXXXXXXXX (order_num, bride_email, body, date_modified) values (?,?,?,now())");
-  // mysqli_stmt_bind_param($stmt,'sss',$order_num,$bride_email,$body);
-  // mysqli_stmt_execute($stmt);
+  $con=mysqli_connect(DB_HOST,DB_NAME,DB_PASSWORD,DB_NAME);
+  $stmt = mysqli_prepare($con,"INSERT INTO _reservation (order_num, bride_email, body, date_modified) values (?,?,?,now())");
+  mysqli_stmt_bind_param($stmt,'sss',$order_num,$cart['entries']['bride_email'],$body);
+  mysqli_stmt_execute($stmt);
 
 }
 

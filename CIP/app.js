@@ -320,8 +320,3 @@ new Vue({
    },
  }
 });
-
-/*
-  // TODO:
-  - inject - https://www.chapelinthepines.com/wedding_chapel_gazebo_banquet_hall_rental/?type=PAYMENT
-*/
