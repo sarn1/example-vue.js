@@ -13,13 +13,15 @@
                         <!-- reserve -->
                         <section class="reserve">
                            <!-- option menu -->
-                           <div id="menu_section">
+                           <div id="menu_section" v-if="show_menu_section">
                               <h3>Select a wedding package:</h3>
                               <select v-on:change="vMenuSelection" v-model="menu_section_options">
                                  <option value="-1">Choose...</option>
                                  <option v-bind:value="package.id" v-for="package in packages">{{ package.menu_label }}</option>
                               </select>
                            </div>
+
+                           <!-- form -->
                            <div id="form" v-if="show_form">
                               <!-- name & summary -->
                               <h3><a v-bind:href="package.url">{{cart.summaries[0].label}}</a></h3>
@@ -92,7 +94,7 @@
                               <!-- payment -->
                               <h3>Payment</h3>
                               <p>{{package.payments.summary}}</p>
-                              <ul >
+                              <ul>
                                  <li v-for="option in package.payments.options">
                                     <input type="radio" v-bind:value="option.amount" name="payment" v-on:change="vCustomAmount" :data-label="option.label"> {{option.label}}
                                  </li>
@@ -135,57 +137,77 @@
                                  </ul>
                               </div>
                               <p><small> Deposit and or all payments will be applied in full towards the total fees. Deposit and all payments are therefore non-refundable and non-transferable. If package is reserved online, there are no future automatic payments as credit card/PayPal information is not stored online. You may make future payments on our website.</small></p>
-                           </div>
-                           <div id="reserve_results">
-                              <hr>
-                              <br>
-                              <small>
-                                 <h5>What you have so far...</h5>
+
+                              <!-- results -->
+                              <div id="results">
+                                 <hr>
                                  <br>
-                                 Summary:
-                                 <ul>
-                                    <li v-for="summary in cart.summaries" v-html="summary.label"></li>
-                                 </ul>
-                                 <br>
-                              </small>
+                                 <small>
+                                    <h5>What you have so far...</h5>
+                                    <br>
+                                    Summary:
+                                    <ul>
+                                       <li v-for="summary in cart.summaries" v-html="summary.label"></li>
+                                    </ul>
+                                    <br>
+                                 </small>
+                              </div>
+
                            </div>
+
                         </section>
 
                         <!-- reserve - pay -->
-                        <section class="reserve process">
-                        	<div class="reserve_results process_results">
-                        		<h5>Summary</h5>
-                        		<span class="summary"><?= $summary ?></span>
+                        <section id="process" v-show="show_paypal">
 
-                        		<?php if (!is_payment): ?>
-                        			<h5>Total Cost For Items Selected Not Including Deposit</h5>
-                        			<em>$<?= $total ?></em>
-                        		<? endif; ?>
+                          <template v-if="results_error_msg == ''">
+                            <div id="reserve_process">
+                             <h3>Summary</h5>
 
-                        		<h5>Order Number (use this for your reference).</h5>
-                        		<em><?= $order_num ?></em>
-                        	</div>
+                              <h5>Details</h5>
+                              <ul>
+                                 <li v-for="summary in cart.summaries" v-html="summary.label"></li>
+                              </ul>
 
-                        	<form action="https://www.paypal.com/cgi-bin/webscr" method="post" class="paypal_form">
-                        	<div align="center">
-                        		<input type="hidden" name="cmd" value="_xclick">
-                        		<input type="hidden" name="business" value="chapelform@gmail.com">
-                        		<input type="hidden" name="item_name" value="Chapel In The Pines Payment Order #<?=$order_num?>">
-                        		<input type="hidden" name="amount" value="<?=$deposit?>">
-                        		<input type="hidden" name="custom" value="http://www.chapelinthepines.com/r.php?o=<?=$order_num?>">
-                        		<input type="hidden" name="invoice" value="<?=$order_num?>">
-                        		<input type="hidden" name="shipping" value="0.00">
-                        		<input type="hidden" name="no_shipping" value="0">
-                        		<input type="hidden" name="no_note" value="1">
-                        		<input type="hidden" name="currency_code" value="USD">
-                        		<input type="hidden" name="tax" value="0.00">
-                        		<input type="hidden" name="lc" value="US">
-                        		<input type="hidden" name="return" value="/">
-                        		<input type="hidden" name="bn" value="PP-BuyNowBF">
-                        		<input type="image" src="https://www.paypal.com/en_US/i/btn/btn_paynowCC_LG.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">
-                        		<img alt="" border="0" src="https://www.paypal.com/en_US/i/scr/pixel.gif" width="1" height="1">
-                        	</div>
-                        	</form>
+                             <h5>Total Cost</h5>
+                             <em>${{ cart.total }}</em>
+
+                              <h5>Payment/Deposit Amount</h5>
+                             <em>${{ cart.payment }}</em>
+
+                             <h5>Order Number (use this for your reference).</h5>
+                             <em>{{ cart.order_num }}</em>
+                           </div>
+
+                           <form action="https://www.paypal.com/cgi-bin/webscr" method="post" class="paypal_form">
+                           <div align="center">
+                             <input type="hidden" name="cmd" value="_xclick">
+                             <input type="hidden" name="business" value="chapelform@gmail.com">
+                             <input type="hidden" name="item_name" v-bind:value="c_paypal_item_name">
+                             <input type="hidden" name="amount" v-bind:value="cart.payment">
+                             <input type="hidden" name="custom" v-bind:value="c_paypal_custom">
+                             <input type="hidden" name="invoice" v-bind:value="cart.order_num">
+                             <input type="hidden" name="shipping" value="0.00">
+                             <input type="hidden" name="no_shipping" value="0">
+                             <input type="hidden" name="no_note" value="1">
+                             <input type="hidden" name="currency_code" value="USD">
+                             <input type="hidden" name="tax" value="0.00">
+                             <input type="hidden" name="lc" value="US">
+                             <input type="hidden" name="return" value="/">
+                             <input type="hidden" name="bn" value="PP-BuyNowBF">
+                             <input type="image" src="https://www.paypal.com/en_US/i/btn/btn_paynowCC_LG.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">
+                             <img alt="" border="0" src="https://www.paypal.com/en_US/i/scr/pixel.gif" width="1" height="1">
+                           </div>
+                           </form>
+                          </template>
+                          <template v-else>
+                             <h3>We're sorry!</h3>
+                             <p>{{results_error_msg}}</p>
+                          </template>
+
+
+
+
                         </section>
 
                      </div>

@@ -24,6 +24,8 @@ h3 {
     margin-top: 15px
 }
 
+
+/* form */
 #form .tier {
   margin-top: 15px;
 }
@@ -61,11 +63,13 @@ h3 {
     padding-left: 25px;
   }
 
-#reserve_results {
+
+/* results */
+#results {
     margin: 25px 0
 }
 
-#reserve_results small {
+#results small {
     background-color: #d2d2d2;
     padding: 15px;
     width: 100%;
@@ -73,18 +77,21 @@ h3 {
     display: block
 }
 
-#reserve_results ul {
+#results ul {
+  padding-left: 25px;
+  list-style: disc;
+}
+
+
+/* process */
+#process h5 {
+  margin-top: 10px;
+}
+
+#process ul {
   padding-left: 25px;
 }
 
-/*
-.process_results .summary {
-    font-style: italic
+#process .paypal_form {
+  margin-top: 50px;
 }
-
-.process_results .summary br {
-    display: none;
-    padding: 0;
-    margin: 0
-}
-*/

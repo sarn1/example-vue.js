@@ -38,6 +38,7 @@ let Entries = {
 }
 
 let Cart = {
+  order_num: "",
   summaries: [],
   total: 0,
   payment: 0,
@@ -106,7 +107,6 @@ let Cart = {
   },
 }
 
-
 new Vue({
   el: '#app',
   data: {
@@ -119,6 +119,9 @@ new Vue({
     show_errors : false,
     timeslots: TimeSlots,
     errors: [],
+    show_paypal: false,
+    results_error_msg : "",
+    show_menu_section : true,
   },
   mounted: function(e) {
     // if triggered payment
@@ -205,9 +208,7 @@ new Vue({
      }
    },
    vUpdateBrickRows : function (e) {
-
      var tmp = "Brick Info:<br> - Row 1: "+this.cart.entries.brick_1+"<br> - Row 2: " + this.cart.entries.brick_2 + "<br> - Row 3: " + this.cart.entries.brick_3;
-     //var isChecked = (e.target.isChecked)
      this.cart.UpdateBrickRows(tmp, true);
    },
    vSubmit : function (e) {
@@ -242,7 +243,6 @@ new Vue({
      if (this.cart.entries.bumper.toUpperCase() != "SPRINGFIELD") {
        this.errors.push("The anti-spam answer is incorrect, please try again.");
      }
-
 
      if (this.cart.entries.groom_email != "") {
         if (!this._vValidateEmail(this.cart.entries.groom_email)) {
@@ -286,27 +286,28 @@ new Vue({
 
      }
 
-
-    axios.post('process.php', {
-         cart: this.cart,
-     })
-     .then(function (r) {
-          console.log(r.data.name);
-          console.log(r.data.description);
-         // var obj =  JSON.parse(r.data);
-         // console.log(obj);
-     })
-     .catch(function (error) {
-       console.log(error);
-         //currentObj.output = error;
-     });
-
-
+     // if no errors, process!
      if (! this.errors.length) {
-       console.log(this.errors.length+"no errors");
+       this.show_form = false;
+       this.show_menu_section = false;
+       this.show_paypal = true;
 
-       //open payment page
+       axios.post('process.php', {
+            cart: this.cart,
+        })
+        .then(function (r) {
+           if (r.data.success) {
+             // success goes here.
+             this.cart.order_num = r.data.order_num;
+           } else {
+             this.results_error_msg = "There was an error processing your payment/reservation.  Please contact us.";
+           }
+        })
+        .catch(function (error) {
+             this.results_error_msg = "Form error.  Please contact us to process your payment/reservation.  Error Code: 1001";
+        });
      }
+
 
    },
 
@@ -318,5 +319,13 @@ new Vue({
        return false;
      }
    },
- }
+ },
+  asyncComputed: {
+    async c_paypal_item_name() {
+      return "Chapel In The Pines Payment Order #" + this.cart.order_num;
+    },
+    async c_paypal_custom ()  {
+      return "http://www.chapelinthepines.com/r.php?o=" + this.cart.order_num;
+    }
+  },
 });
