@@ -1,196 +1,202 @@
 <!DOCTYPE html>
 <html lang="en">
+   <link href="https://www.chapelinthepines.com/wp-content/uploads/siteground-optimizer-assets/siteground-optimizer-combined-styles-e6e8cafac107d0596f46cf48984070cb.min.css" rel="stylesheet">
+   <link href="page-wedding_chapel_gazebo_banquet_hall_rental.css?vers=1.0" rel="stylesheet">
+   <body>
+      <div id="app" class="container">
+         <div class="one withsmallpadding ppb_text" style="padding:0 0 30px 0;">
+            <div class="standard_wrapper">
+               <div class="page_content_wrapper">
+                  <div class="inner">
+                     <div style="margin:auto;width:100%">
 
-<link href="https://www.chapelinthepines.com/wp-content/uploads/siteground-optimizer-assets/siteground-optimizer-combined-styles-e6e8cafac107d0596f46cf48984070cb.min.css" rel="stylesheet">
-<link href="page-wedding_chapel_gazebo_banquet_hall_rental.css?vers=1.0" rel="stylesheet">
+                        <!-- reserve -->
+                        <section class="reserve">
+                           <!-- option menu -->
+                           <div id="menu_section">
+                              <h3>Select a wedding package:</h3>
+                              <select v-on:change="vMenuSelection" v-model="menu_section_options">
+                                 <option value="-1">Choose...</option>
+                                 <option v-bind:value="package.id" v-for="package in packages">{{ package.menu_label }}</option>
+                              </select>
+                           </div>
+                           <div id="form" v-if="show_form">
+                              <!-- name & summary -->
+                              <h3><a v-bind:href="package.url">{{cart.summaries[0].label}}</a></h3>
+                              <h4>Please fill out the form below in the order they appear. Try not to use autocomeplte as it may cause problems.</h4>
+                              <div class="package_summary" v-html="package.summary"></div>
+                              <!-- pricing -->
+                              <div class="tier" v-for="(v,i) in package.tier">
+                                 <strong>{{ v.label }}</strong>
+                                 <div v-for="(v2,i2) in v.options">
+                                    <input type="radio" name="tier" :data-label="vConcatTierLabel(v2.label,v2.cost,v.label)" :data-value="v2.cost" v-on:change="vAddTier"> {{v2.label}} (${{v2.cost}})
+                                 </div>
+                              </div>
+                              <!-- date -->
+                              <h3>Agreed Date</h3>
+                              <input type="date" name="wedding_date" v-model="cart.entries.date">
+                              <!-- start time -->
+                              <h3>Agreed Ceremony Start Time</h3>
+                              <small> Please select an agreed ceremony start time, typically 5:15pm: </small>
+                              <select v-model="cart.entries.start_time">
+                                 <option>Choose a timeslot...</option>
+                                 <option v-for="timeslot in timeslots">{{timeslot}}</option>
+                              </select>
+                              <!-- extras -->
+                              <div id="extras">
+                                 <h3>Extras</h3>
+                                 <ul id="extra_options">
+                                    <li v-for="extra in package.extras">
+                                       <template v-if="extra.label == 'Personalized Brick'">
+                                          <input type="checkbox" v-bind:value="extra.cost" :data-label="extra.label" v-on:change="vUpdateBricks"> {{extra.label}} (${{extra.cost}})
+                                       </template>
+                                       <template v-else-if="extra.cost != '0'">
+                                          <input type="checkbox" v-bind:value="extra.cost" :data-label="extra.label" v-on:change="vUpdateExtras"> {{extra.label}} (${{extra.cost}})
+                                       </template>
+                                       <template v-else>
+                                          <input type="checkbox" v-bind:value="extra.cost" :data-label="extra.label" checked="checked" disabled="disabled"> {{extra.label}} (${{extra.cost}})
+                                       </template>
+                                    </li>
+                                 </ul>
+                              </div>
+                              <!-- if show_bricks -->
+                              <div id="optional_brick_container" v-show="package.show_bricks">
+                                 <h3>Buy A Brick</h3>
+                                 <p>Buy a brick to celebrate an important event in your life, whether it is your wedding day, anniversary, birthday, or memory of someone, etc. you choose what you want engraved on your brick. Your brick will be set into the winding brick pathway, or purchase an extra brick for your home. Each brick is 4" x 8"</p>
+                                 <p>Please indicate what you want on your brick, use up to 3 lines, 14 characters per line.</p>
+                                 <p>Row #1 <small><em>Example: Anderson</em></small></p>
+                                 <input type="text" name="extra_brick_row1" maxlength="14" v-model="cart.entries.brick_1" v-on:change="vUpdateBrickRows">
+                                 <p> Row #2 <small><em>Example: John &amp; Sandy</em></small></p>
+                                 <input type="text" name="extra_brick_row2" maxlength="14" v-model="cart.entries.brick_2" v-on:change="vUpdateBrickRows">
+                                 <p> Row #3 <small><em>Example: 5/10/2016</em></small></p>
+                                 <input type="text" name="extra_brick_row3" maxlength="14" v-model="cart.entries.brick_3" v-on:change="vUpdateBrickRows">
+                              </div>
+                              <!-- contact info -->
+                              <h3>Contact Information</h3>
+                              <label>Bride First & Last Name* </label>
+                              <input name="bride_name" type="text" v-model="cart.entries.bride_name">
+                              <label>Groom First & Last Name* </label>
+                              <input name="groom_name" type="text" v-model="cart.entries.groom_name">
+                              <label>Bride Cell phone* </label>
+                              <input name="bride_phone" type="text" v-model="cart.entries.bride_phone">
+                              <label>Groom Cell Phone* </label>
+                              <input name="groom_phone" type="text" v-model="cart.entries.groom_phone">
+                              <label>Bride Email </label>
+                              <input name="bride_email" type="text" v-model="cart.entries.bride_email">
+                              <label>Groom Email </label>
+                              <input name="groom_email" type="text" v-model="cart.entries.groom_email">
+                              <label>Bride Address</label>
+                              <input type="text" name="bride_address" v-model="cart.entries.bride_addr" />
+                              <label>Groom Address</label>
+                              <input type="text" name="groom_address" v-model="cart.entries.groom_addr">
+                              <!-- payment -->
+                              <h3>Payment</h3>
+                              <p>{{package.payments.summary}}</p>
+                              <ul >
+                                 <li v-for="option in package.payments.options">
+                                    <input type="radio" v-bind:value="option.amount" name="payment" v-on:change="vCustomAmount" :data-label="option.label"> {{option.label}}
+                                 </li>
+                                 <li>
+                                    <input type="radio" name="payment" v-on:change="vCustomAmount" id="custom_or_full_amt_rdr"> Custom or full amount, enter amount below (<small>Note: Remaining balance due 30 days before wedding.</small>):
+                                    <input type="number" v-model="cart.entries.custom_or_full_amt" id="custom_or_full_amt" v-on:change="vCustomAmount">
+                                 </li>
+                              </ul>
+                              <!-- comments -->
+                              <h3>Comments</h3>
+                              <textarea name="comments" v-model="cart.entries.comments"></textarea>
+                              <!-- terms -->
+                              <template v-if="package.terms">
+                                 <h3>Terms</h3>
+                                 <p>Deposit and or all payments will be applied in full towards the total fees. Deposit and all payments are therefore non-refundable and non-transferable. If package is reserved online, there are no automatic payments as credit card/paypal information is not stored online. You either may:</p>
+                                 <ol type="1">
+                                    <li>pay your remaining balance in U.S. funds by check, money order, cashier's check, or cash at that time, OR</li>
+                                    <li>proceed to make a payment below.</li>
+                                 </ol>
+                                 <p>The balance of the contract is due 30 days before the event. If the remaining balance is not paid 30 days before the ceremony, the reservation and services are subject to cancellation at Chapel in the Pines' sole discretion.</p>
+                                 <p>This contract is for the use of the venue and the grounds for the allotted time. Any party staying beyond the allotted time period will be charged accordingly. We are not responsible for accidents or theft.</p>
+                                 <p>I give my permission to use photographs of my wedding to use in all forms of media for promotional purposes.</p>
+                                 <div id="pdf_agreement_link" v-show="package.terms_pdf">
+                                    <p><a href="/wp-content/uploads/2019/07/Chapel-in-the-Pines-Wedding-and-Banquet-Center-Terms.pdf" target="_blank">(Download PDF of agreement terms, banquet hall, for paying online)</a></p>
+                                    <p>Click this <a href="/banquet-hall-terms-conditions/" target="_blank">link</a> to view agreement terms when reserving the banquet hall.</p>
+                                 </div>
+                                 <p><input type="checkbox" value="acknowledge" name="acknowledge" id="acknowledge" ref="acknowledge"> By clicking here you acknowledge you have read and agree to the Chapel in the Pines terms and conditions.</p>
+                              </template>
+                              <!-- anti-spam -->
+                              <h3>Anti-Spam: WHAT IS THE CAPITAL OF ILLINOIS (ANSWER WITH ALL LOWERCASE AND NO SPACES):</h3>
+                              <input type="text" name="bumper" v-model="cart.entries.bumper">
+                              <p>We look forward to hosting your wedding! Please contact us to ensure date and time is available before proceeding. Clicking 'Proceed To Payment' will take you to the secure payment page. You may use PayPal, debit, or credit cards.</p>
+                              <input type="submit" value="Proceed To Payment" v-on:click="vSubmit">
+                              <!-- errors -->
+                              <div v-if="errors.length" class="error">
+                                 <h5>We're sorry</h5>
+                                 <p>You're entry could not be sumbmitted due to the following issues.  Please go back and fix the entries:</p>
+                                 <ul>
+                                    <li v-for="error in errors">{{ error }}</li>
+                                 </ul>
+                              </div>
+                              <p><small> Deposit and or all payments will be applied in full towards the total fees. Deposit and all payments are therefore non-refundable and non-transferable. If package is reserved online, there are no future automatic payments as credit card/PayPal information is not stored online. You may make future payments on our website.</small></p>
+                           </div>
+                           <div id="reserve_results">
+                              <hr>
+                              <br>
+                              <small>
+                                 <h5>What you have so far...</h5>
+                                 <br>
+                                 Summary:
+                                 <ul>
+                                    <li v-for="summary in cart.summaries" v-html="summary.label"></li>
+                                 </ul>
+                                 <br>
+                              </small>
+                           </div>
+                        </section>
 
+                        <!-- reserve - pay -->
+                        <section class="reserve process">
+                        	<div class="reserve_results process_results">
+                        		<h5>Summary</h5>
+                        		<span class="summary"><?= $summary ?></span>
 
-<body>
-  <div id="app" class="container">
+                        		<?php if (!is_payment): ?>
+                        			<h5>Total Cost For Items Selected Not Including Deposit</h5>
+                        			<em>$<?= $total ?></em>
+                        		<? endif; ?>
 
+                        		<h5>Order Number (use this for your reference).</h5>
+                        		<em><?= $order_num ?></em>
+                        	</div>
 
-    <div class="one withsmallpadding ppb_text" style="padding:0 0 30px 0;">
-       <div class="standard_wrapper">
-          <div class="page_content_wrapper">
-             <div class="inner">
-                <div style="margin:auto;width:100%">
-                   <section class="reserve">
+                        	<form action="https://www.paypal.com/cgi-bin/webscr" method="post" class="paypal_form">
+                        	<div align="center">
+                        		<input type="hidden" name="cmd" value="_xclick">
+                        		<input type="hidden" name="business" value="chapelform@gmail.com">
+                        		<input type="hidden" name="item_name" value="Chapel In The Pines Payment Order #<?=$order_num?>">
+                        		<input type="hidden" name="amount" value="<?=$deposit?>">
+                        		<input type="hidden" name="custom" value="http://www.chapelinthepines.com/r.php?o=<?=$order_num?>">
+                        		<input type="hidden" name="invoice" value="<?=$order_num?>">
+                        		<input type="hidden" name="shipping" value="0.00">
+                        		<input type="hidden" name="no_shipping" value="0">
+                        		<input type="hidden" name="no_note" value="1">
+                        		<input type="hidden" name="currency_code" value="USD">
+                        		<input type="hidden" name="tax" value="0.00">
+                        		<input type="hidden" name="lc" value="US">
+                        		<input type="hidden" name="return" value="/">
+                        		<input type="hidden" name="bn" value="PP-BuyNowBF">
+                        		<input type="image" src="https://www.paypal.com/en_US/i/btn/btn_paynowCC_LG.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">
+                        		<img alt="" border="0" src="https://www.paypal.com/en_US/i/scr/pixel.gif" width="1" height="1">
+                        	</div>
+                        	</form>
+                        </section>
 
-                      <!-- option menu -->
-                      <div id="menu_section">
-                         <h3>Select a wedding package:</h3>
-                         <select v-on:change="vMenuSelection" v-model="menu_section_options">
-                            <option value="-1">Choose...</option>
-                            <option v-bind:value="package.id" v-for="package in packages">{{ package.menu_label }}</option>
-                         </select>
-                      </div>
-
-                      <div id="form" v-if="show_form">
-                          <!-- name & summary -->
-                          <h3><a v-bind:href="package.url">{{cart.summaries[0].label}}</a></h3>
-                          <h4>Please fill out the form below in the order they appear. Try not to use autocomeplte as it may cause problems.</h4>
-
-                          <div class="package_summary" v-html="package.summary"></div>
-
-                          <!-- pricing -->
-                          <div class="tier" v-for="(v,i) in package.tier">
-                            <strong>{{ v.label }}</strong>
-                            <div v-for="(v2,i2) in v.options">
-                              <input type="radio" name="tier" :data-label="vConcatTierLabel(v2.label,v2.cost,v.label)" :data-value="v2.cost" v-on:change="vAddTier"> {{v2.label}} (${{v2.cost}})
-                            </div>
-                          </div>
-
-                          <!-- date -->
-                          <h3>Agreed Date</h3>
-                          <input type="date" name="wedding_date" v-model="cart.entries.date">
-
-                          <!-- start time -->
-                          <h3>Agreed Ceremony Start Time</h3>
-                          <small> Please select an agreed ceremony start time, typically 5:15pm: </small>
-                          <select v-model="cart.entries.start_time">
-                            <option>Choose a timeslot...</option>
-                            <option v-for="timeslot in timeslots">{{timeslot}}</option>
-                          </select>
-
-                          <!-- extras -->
-                          <div id="extras">
-                            <h3>Extras</h3>
-                            <ul id="extra_options">
-                              <li v-for="extra in package.extras">
-                                <template v-if="extra.label == 'Personalized Brick'">
-                                  <input type="checkbox" v-bind:value="extra.cost" :data-label="extra.label" v-on:change="vUpdateBricks"> {{extra.label}} (${{extra.cost}})
-                                </template>
-                                <template v-else-if="extra.cost != '0'">
-                                  <input type="checkbox" v-bind:value="extra.cost" :data-label="extra.label" v-on:change="vUpdateExtras"> {{extra.label}} (${{extra.cost}})
-                                </template>
-                                <template v-else>
-                                  <input type="checkbox" v-bind:value="extra.cost" :data-label="extra.label" checked="checked" disabled="disabled"> {{extra.label}} (${{extra.cost}})
-                                </template>
-                              </li>
-                            </ul>
-                          </div>
-
-                        <!-- if show_bricks -->
-                        <div id="optional_brick_container" v-show="package.show_bricks">
-                          <h3>Buy A Brick</h3>
-                          <p>Buy a brick to celebrate an important event in your life, whether it is your wedding day, anniversary, birthday, or memory of someone, etc. you choose what you want engraved on your brick. Your brick will be set into the winding brick pathway, or purchase an extra brick for your home. Each brick is 4" x 8"</p>
-                          <p>Please indicate what you want on your brick, use up to 3 lines, 14 characters per line.</p>
-                          <p>Row #1 <small><em>Example: Anderson</em></small></p>
-                          <input type="text" name="extra_brick_row1" maxlength="14" v-model="cart.entries.brick_1" v-on:change="vUpdateBrickRows">
-                          <p> Row #2 <small><em>Example: John &amp; Sandy</em></small></p>
-                          <input type="text" name="extra_brick_row2" maxlength="14" v-model="cart.entries.brick_2" v-on:change="vUpdateBrickRows">
-                          <p> Row #3 <small><em>Example: 5/10/2016</em></small></p>
-                          <input type="text" name="extra_brick_row3" maxlength="14" v-model="cart.entries.brick_3" v-on:change="vUpdateBrickRows">
-                        </div>
-
-                        <!-- contact info -->
-                        <h3>Contact Information</h3>
-                        <label>Bride First & Last Name* </label>
-                        <input name="bride_name" type="text" v-model="cart.entries.bride_name">
-
-                        <label>Groom First & Last Name* </label>
-                        <input name="groom_name" type="text" v-model="cart.entries.groom_name">
-
-                        <label>Bride Cell phone* </label>
-                        <input name="bride_phone" type="text" v-model="cart.entries.bride_phone">
-
-                        <label>Groom Cell Phone* </label>
-                        <input name="groom_phone" type="text" v-model="cart.entries.groom_phone">
-
-                        <label>Bride Email </label>
-                        <input name="bride_email" type="text" v-model="cart.entries.bride_email">
-
-                        <label>Groom Email </label>
-                        <input name="groom_email" type="text" v-model="cart.entries.groom_email">
-
-                        <label>Bride Address</label>
-                        <input type="text" name="bride_address" v-model="cart.entries.bride_addr" />
-
-                        <label>Groom Address</label>
-                        <input type="text" name="groom_address" v-model="cart.entries.groom_addr">
-
-                        <!-- payment -->
-                        <h3>Payment</h3>
-                        <p>{{package.payments.summary}}</p>
-                        <ul >
-                          <li v-for="option in package.payments.options">
-                            <input type="radio" v-bind:value="option.amount" name="payment" v-on:change="vCustomAmount" :data-label="option.label"> {{option.label}}
-                          </li>
-                          <li>
-                            <input type="radio" name="payment" v-on:change="vCustomAmount" id="custom_or_full_amt_rdr"> Custom or full amount, enter amount below (<small>Note: Remaining balance due 30 days before wedding.</small>):
-                            <input type="number" v-model="cart.entries.custom_or_full_amt" id="custom_or_full_amt" v-on:change="vCustomAmount">
-                          </li>
-                        </ul>
-
-                        <!-- comments -->
-                        <h3>Comments</h3>
-                        <textarea name="comments" v-model="cart.entries.comments"></textarea>
-
-                        <!-- terms -->
-                        <template v-if="package.terms">
-                          <h3>Terms</h3>
-                          <p>Deposit and or all payments will be applied in full towards the total fees. Deposit and all payments are therefore non-refundable and non-transferable. If package is reserved online, there are no automatic payments as credit card/paypal information is not stored online. You either may:</p>
-                          <ol type="1">
-                            <li>pay your remaining balance in U.S. funds by check, money order, cashier's check, or cash at that time, OR</li>
-                            <li>proceed to make a payment below.</li>
-                          </ol>
-                          <p>The balance of the contract is due 30 days before the event. If the remaining balance is not paid 30 days before the ceremony, the reservation and services are subject to cancellation at Chapel in the Pines' sole discretion.</p>
-                          <p>This contract is for the use of the venue and the grounds for the allotted time. Any party staying beyond the allotted time period will be charged accordingly. We are not responsible for accidents or theft.</p>
-                          <p>I give my permission to use photographs of my wedding to use in all forms of media for promotional purposes.</p>
-
-                          <div id="pdf_agreement_link" v-show="package.terms_pdf">
-                            <p><a href="/wp-content/uploads/2019/07/Chapel-in-the-Pines-Wedding-and-Banquet-Center-Terms.pdf" target="_blank">(Download PDF of agreement terms, banquet hall, for paying online)</a></p>
-                            <p>Click this <a href="/banquet-hall-terms-conditions/" target="_blank">link</a> to view agreement terms when reserving the banquet hall.</p>
-                          </div>
-
-                          <p><input type="checkbox" value="acknowledge" name="acknowledge" id="acknowledge" ref="acknowledge"> By clicking here you acknowledge you have read and agree to the Chapel in the Pines terms and conditions.</p>
-                        </template>
-
-                        <!-- anti-spam -->
-                        <h3>Anti-Spam: WHAT IS THE CAPITAL OF ILLINOIS (ANSWER WITH ALL LOWERCASE AND NO SPACES):</h3>
-                        <input type="text" name="bumper" v-model="cart.entries.bumper">
-
-                        <p>We look forward to hosting your wedding! Please contact us to ensure date and time is available before proceeding. Clicking 'Proceed To Payment' will take you to the secure payment page. You may use PayPal, debit, or credit cards.</p>
-                        <input type="submit" value="Proceed To Payment" v-on:click="vSubmit">
-
-                        <!-- errors -->
-                        <div v-if="errors.length" class="error">
-                          <h5>We're sorry</h5>
-                          <p>You're entry could not be sumbmitted due to the following issues.  Please go back and fix the entries:</p>
-                          <ul>
-                            <li v-for="error in errors">{{ error }}</li>
-                          </ul>
-
-                        </div>
-
-                        <p><small> Deposit and or all payments will be applied in full towards the total fees. Deposit and all payments are therefore non-refundable and non-transferable. If package is reserved online, there are no future automatic payments as credit card/PayPal information is not stored online. You may make future payments on our website.</small></p>
-                      </div>
-
-                      <div id="reserve_results">
-                         <hr>
-                         <br>
-                         <small>
-                            <h5>What you have so far...</h5>
-                            <br>
-                            Summary:
-                            <ul>
-                              <li v-for="summary in cart.summaries" v-html="summary.label"></li>
-                            </ul>
-                            <br>
-                         </small>
-                      </div>
-                   </section>
-                </div>
-             </div>
-          </div>
-       </div>
-    </div>
-
-  </div>
-
-  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.10/vue.js"></script>
-  <script src="packages.js"></script>
-  <script src="app.js?v=1.01A"></script>
-</body>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+      <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.10/vue.js"></script>
+      <script src="packages.js"></script>
+      <script src="app.js?v=1.01A"></script>
+   </body>
 </html>
