@@ -19,9 +19,9 @@
                       <!-- option menu -->
                       <div id="menu_section">
                          <h3>Select a wedding package:</h3>
-                         <select v-on:change="vMenuSelection">
+                         <select v-on:change="vMenuSelection" v-model="menu_section_options">
                             <option value="-1">Choose...</option>
-                            <option v-for="package in packages">{{ package.menu_label }}</option>
+                            <option v-bind:value="package.id" v-for="package in packages">{{ package.menu_label }}</option>
                          </select>
                       </div>
 
@@ -188,10 +188,10 @@
 
   </div>
 
-
+  <!-- <script src="https://unpkg.com/vue-router"></script> -->
   <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.10/vue.js"></script>
   <script src="packages.js"></script>
-  <script src="app.js"></script>
+  <script src="app.js?v=1.0100000000000000020000202"></script>
 </body>
 </html>

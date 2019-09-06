@@ -57,6 +57,7 @@ let Cart = {
     this._AddToCart("Selection: " + Packages[e.target.options.selectedIndex-1].menu_label, 0, "SELECTION");
   },
   AddTier: function (label, value) {
+    this.entries.tier = label;
     this._RemoveFromCart("TIER");
     this._AddToCart("Tier: " + label, value, "TIER");
   },
@@ -105,16 +106,36 @@ let Cart = {
   },
 }
 
+
 new Vue({
   el: '#app',
   data: {
+    uri : window.location.search.includes("type=PAYMENT"),
     packages: Packages,
+    menu_section_options: -1,
     cart: Cart,
     package: undefined,
     show_form: false,
     show_errors : false,
     timeslots: TimeSlots,
     errors: [],
+  },
+  mounted: function(e) {
+    // if triggered payment
+    if (this.uri) {
+
+      // simulates - e.target.options.selectedIndex = 5;
+      let fake_e = {
+        target : {
+          options : {
+            selectedIndex : 5
+          }
+        }
+      };
+
+       this.menu_section_options = 5;
+       this.vMenuSelection(fake_e);
+    }
   },
   methods: {
    vInit: function() {
@@ -134,13 +155,13 @@ new Vue({
        this.package = Packages[e.target.options.selectedIndex-1].obj
        this.show_form = true;
      }
+
    },
    vCustomAmount : function (e) {
 
      var payment = 0;
      var label = "";
 
-     console.log(e);
      // toggle to the appropriate radio button depending on input
      if (e.target.id == "custom_or_full_amt" || e.target.id == "custom_or_full_amt_rdr") {
        document.getElementById("custom_or_full_amt_rdr").checked = true;
@@ -190,7 +211,6 @@ new Vue({
      this.cart.UpdateBrickRows(tmp, true);
    },
    vSubmit : function (e) {
-
      // validate form
      this.errors = [];
 
@@ -221,6 +241,19 @@ new Vue({
 
      if (this.cart.entries.bumper.toUpperCase() != "SPRINGFIELD") {
        this.errors.push("The anti-spam answer is incorrect, please try again.");
+     }
+
+
+     if (this.cart.entries.groom_email != "") {
+        if (!this._vValidateEmail(this.cart.entries.groom_email)) {
+          this.errors.push("The groom email you entered is not a valid email.");
+        }
+     }
+
+     if (this.cart.entries.bride_email != "") {
+       if (!this._vValidateEmail(this.cart.entries.bride_email)) {
+         this.errors.push("The bride email you entered is not a valid email.");
+       }
      }
 
      // must have a payment and check for custom amount if selected as-if
@@ -254,41 +287,41 @@ new Vue({
      }
 
 
-
+    axios.post('process.php', {
+         cart: this.cart,
+     })
+     .then(function (r) {
+          console.log(r.data.name);
+          console.log(r.data.description);
+         // var obj =  JSON.parse(r.data);
+         // console.log(obj);
+     })
+     .catch(function (error) {
+       console.log(error);
+         //currentObj.output = error;
+     });
 
 
      if (! this.errors.length) {
-       // ajax to process page.
-       axios.post('process.php', {
-            cart : this.cart
-        })
-        .then(function (r) {
-             console.log(r.data.order_num);
-             console.log(r.data.success);
-            // var obj =  JSON.parse(r.data);
-            // console.log(obj);
-        })
-        .catch(function (error) {
-          console.log(error);
-            //currentObj.output = error;
-        });
+       console.log(this.errors.length+"no errors");
 
-        // if success, payment container
-
+       //open payment page
      }
 
    },
 
    // private
-   _vValidate : function (e) {
-
+   _vValidateEmail : function (email) {
+     if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email)) {
+       return true;
+     } else {
+       return false;
+     }
    },
  }
 });
 
 /*
   // TODO:
-  - tier bug
-  - validate email
   - inject - https://www.chapelinthepines.com/wedding_chapel_gazebo_banquet_hall_rental/?type=PAYMENT
 */
