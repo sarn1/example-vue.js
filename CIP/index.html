@@ -183,9 +183,9 @@
                            <div align="center">
                              <input type="hidden" name="cmd" value="_xclick">
                              <input type="hidden" name="business" value="chapelform@gmail.com">
-                             <input type="hidden" name="item_name" v-bind:value="c_paypal_item_name">
+                             <span v-html="vhtml_paypal_item_name"></span>
                              <input type="hidden" name="amount" v-bind:value="cart.payment">
-                             <input type="hidden" name="custom" v-bind:value="c_paypal_custom">
+                             <span v-html="vhtml_paypal_custom"></span>
                              <input type="hidden" name="invoice" v-bind:value="cart.order_num">
                              <input type="hidden" name="shipping" value="0.00">
                              <input type="hidden" name="no_shipping" value="0">

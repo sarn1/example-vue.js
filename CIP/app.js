@@ -122,6 +122,9 @@ new Vue({
     show_paypal: false,
     results_error_msg : "",
     show_menu_section : true,
+    vhtml_paypal_item_name : "",
+    vhtml_paypal_custom : "",
+    debug : false,
   },
   mounted: function(e) {
     // if triggered payment
@@ -292,23 +295,31 @@ new Vue({
        this.show_menu_section = false;
        this.show_paypal = true;
 
-       axios.post('process.php', {
-            cart: this.cart,
-        })
-        .then(function (r) {
-           if (r.data.success) {
-             // success goes here.
-             this.cart.order_num = r.data.order_num;
-           } else {
-             this.results_error_msg = "There was an error processing your payment/reservation.  Please contact us.";
-           }
-        })
-        .catch(function (error) {
-             this.results_error_msg = "Form error.  Please contact us to process your payment/reservation.  Error Code: 1001";
-        });
+       if (this.debug) {
+         this.cart.order_num = "500555005";
+         this.vhtml_paypal_custom = '<input type="hidden" name="custom" value="Chapel In The Pines Payment Order #' + this.cart.order_num + '">';
+         this.vhtml_paypal_item_name = '<input type="hidden" name="item_name" value="http://www.chapelinthepines.com/r.php?o='+ this.cart.order_num+'">';
+       } else {
+         axios.post('process.php', {
+              cart: this.cart,
+          })
+          .then(function (r) {
+             if (r.data.success) {
+               // success goes here.
+               this.cart.order_num = r.data.order_num;
+               this.vhtml_paypal_custom = '<input type="hidden" name="custom" value="Chapel In The Pines Payment Order #' + this.cart.order_num + '">';
+               this.vhtml_paypal_item_name = '<input type="hidden" name="item_name" value="http://www.chapelinthepines.com/r.php?o='+ this.cart.order_num+'">';
+
+             } else {
+               this.results_error_msg = "There was an error processing your payment/reservation.  Please contact us.";
+             }
+          })
+          .catch(function (error) {
+               this.results_error_msg = "Form error.  Please contact us to process your payment/reservation.  Error Code: 1001";
+          });
+       }
+
      }
-
-
    },
 
    // private
@@ -320,12 +331,5 @@ new Vue({
      }
    },
  },
-  asyncComputed: {
-    async c_paypal_item_name() {
-      return "Chapel In The Pines Payment Order #" + this.cart.order_num;
-    },
-    async c_paypal_custom ()  {
-      return "http://www.chapelinthepines.com/r.php?o=" + this.cart.order_num;
-    }
-  },
+
 });
