@@ -1,3 +1,113 @@
+let Entries = {
+  tier: "",
+  date: "",
+  start_time: "",
+  bride_name: "",
+  groom_name: "",
+  bride_phone: "",
+  groom_phone: "",
+  bride_email: "",
+  groom_email: "",
+  bride_addr: "",
+  groom_addr: "",
+  custom_or_full_amt: "",
+  comments: "",
+  brick_1: "",
+  brick_2: "",
+  brick_3: "",
+  bumper: "",
+  Init: function () {
+    this.tier = "";
+    this.date = "";
+    this.start_time = "";
+    this.bride_name = "";
+    this.groom_name = "";
+    this.bride_phone = "";
+    this.groom_phone = "";
+    this.bride_email = "";
+    this.groom_email = "";
+    this.bride_addr = "";
+    this.groom_addr = "";
+    this.custom_or_full_amt = "";
+    this.comments = "";
+    this.brick_1 = "";
+    this.brick_2 = "";
+    this.brick_3 = "";
+    this.bumper = "";
+  },
+}
+
+let Cart = {
+  order_num: "11555511",
+  summaries: [],
+  total: 0,
+  payment: 0,
+  selection: -1,
+  entries: Entries,
+  Init: function () {
+    this.selection = -1;
+    this.summaries = [];
+    this.total = 0;
+    this.payment = 0;
+    this.entries.Init();
+  },
+
+  // public
+  AddSelection: function (e) {
+    this.selection = e.target.options.selectedIndex;
+    this._AddToCart("Selection: " + Packages[e.target.options.selectedIndex-1].menu_label, 0, "SELECTION");
+  },
+  AddTier: function (label, value) {
+    this.entries.tier = label;
+    this._RemoveFromCart("TIER");
+    this._AddToCart("Tier: " + label, value, "TIER");
+  },
+  AddPayment: function (label, value) {
+    this._RemoveFromCart("PAYMENT");
+
+    if (label == "") {
+      this._AddToCart("Payment: Custom or Full Amount: $" + value, 0, "PAYMENT");
+    } else {
+      this._AddToCart("Payment: " + label, 0, "PAYMENT");
+    }
+
+    this.payment = value;
+  },
+  AddExtras: function (label, value) {
+    this._AddToCart("Extra: " + label + " ($" + value + ")", value, "EXTRA-"+label.toUpperCase());
+  },
+  RemoveExtras: function (label, value) {
+    this._RemoveFromCart("EXTRA-"+label.toUpperCase());
+  },
+  UpdateBrickRows : function (label, isChecked) {
+    this._RemoveFromCart("BRICK_INFO");
+
+    if (isChecked && label != "") {
+      this._AddToCart(label, 0, "BRICK_INFO");
+    }
+
+  },
+
+  // private
+  _AddToCart (label, value, type) {
+    this.total += parseFloat(value);
+    this.summaries.push({
+      "label" : label,
+      "value" : parseFloat(value),
+      "type" : type
+    });
+  },
+  _RemoveFromCart(type) {
+    for (var i = this.summaries.length - 1; i >= 0; i--) {
+        if (this.summaries[i].type == type) {
+            this.total -= this.summaries[i].value;
+            this.summaries.splice(i, 1);
+        }
+    }
+  },
+}
+
+
 let Package1 = {
     url : "/elopement-small-wedding/",
     summary: "Arrive 15 minutes before ceremony start time. Bridal dressing room is not available in this package. Includes chapel, gazebo, grounds, officiant services and gazebo chairs. A guest is considered anyone, regardless of age, including the bridal party, who attends the wedding that is not a vendor, such as a photographer.",

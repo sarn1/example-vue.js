@@ -183,9 +183,9 @@
                            <div align="center">
                              <input type="hidden" name="cmd" value="_xclick">
                              <input type="hidden" name="business" value="chapelform@gmail.com">
-                             <span v-html="vhtml_paypal_item_name"></span>
+                             <input type="hidden" name="item_name" v-bind:value="c_paypal_item_name">
                              <input type="hidden" name="amount" v-bind:value="cart.payment">
-                             <span v-html="vhtml_paypal_custom"></span>
+                             <input type="hidden" name="custom" v-bind:value="c_paypal_custom">
                              <input type="hidden" name="invoice" v-bind:value="cart.order_num">
                              <input type="hidden" name="shipping" value="0.00">
                              <input type="hidden" name="no_shipping" value="0">
@@ -205,9 +205,6 @@
                              <p>{{results_error_msg}}</p>
                           </template>
 
-
-
-
                         </section>
 
                      </div>
@@ -219,6 +216,9 @@
       <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.10/vue.js"></script>
       <script src="packages.js"></script>
+      <script>
+        Cart.order_num = "1234567";
+      </script>
       <script src="app.js?v=1.01A"></script>
    </body>
 </html>
