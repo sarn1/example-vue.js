@@ -1,5 +1,3 @@
-
-
 new Vue({
   el: '#app',
   data: {
@@ -15,7 +13,7 @@ new Vue({
     show_paypal: false,
     results_error_msg : "",
     show_menu_section : true,
-    debug : true,
+    debug : false,
   },
   mounted: function(e) {
     // if triggered payment
@@ -194,18 +192,13 @@ new Vue({
        this.show_menu_section = false;
        this.show_paypal = true;
 
-       if (this.debug) {
-
-       } else {
+       if (!this.debug) {
          axios.post('process.php', {
               cart: this.cart,
           })
           .then(function (r) {
              if (r.data.success) {
                // success goes here.
-               // this.cart.order_num = r.data.order_num;
-               // this.vhtml_paypal_custom = '<input type="hidden" name="custom" value="Chapel In The Pines Payment Order #' + this.cart.order_num + '">';
-               // this.vhtml_paypal_item_name = '<input type="hidden" name="item_name" value="http://www.chapelinthepines.com/r.php?o='+ this.cart.order_num+'">';
 
              } else {
                this.results_error_msg = "There was an error processing your payment/reservation.  Please contact us.";
@@ -215,8 +208,6 @@ new Vue({
                this.results_error_msg = "Form error.  Please contact us to process your payment/reservation.  Error Code: 1001";
           });
        }
-
-
 
      }
    },
