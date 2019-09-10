@@ -12,7 +12,6 @@ $order_details = "";
 // some validation
 if (strtoupper($cart['entries']['bumper']) == "SPRINGFIELD") {
   $success = true;
-  $order_num = get_rand_numbers(10);
   $now = new DateTime();
   $now->setTimezone(new DateTimeZone('America/Chicago'));
 
@@ -22,7 +21,7 @@ if (strtoupper($cart['entries']['bumper']) == "SPRINGFIELD") {
     $order_details .= "<li>".$d['label']."</li>";
   }
 
-  $subject="Reservation/Payment From CIP - " . $order_num;
+  $subject="Reservation/Payment From CIP - " . $cart['order_num'];
   $body='
     <table border="1" cellpadding="1" cellspacing="0" style="font-size: 10px">
     <tr>
@@ -79,7 +78,7 @@ if (strtoupper($cart['entries']['bumper']) == "SPRINGFIELD") {
     </tr>
     <tr>
       <td width="300"><b>Order Number:</b></td>
-      <td>'.$order_num.'</td>
+      <td>'.$cart['order_num'].'</td>
     </tr>
     <tr>
       <td width="300"><b>Order Details:</b></td>
