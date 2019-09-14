@@ -85,7 +85,11 @@ let Cart = {
     if (isChecked && label != "") {
       this._AddToCart(label, 0, "BRICK_INFO");
     }
-
+  },
+  Elopement_Full_Amt_Calc : function () {
+    if (this.selection == 1 && this.payment == 55555) {
+      this.payment = this.total;
+    }
   },
 
   // private
@@ -110,7 +114,7 @@ let Cart = {
 
 let Package1 = {
     url : "/elopement-small-wedding/",
-    summary: "Arrive 15 minutes before ceremony start time. Bridal dressing room is not available in this package. Includes chapel, gazebo, grounds, officiant services and gazebo chairs. A guest is considered anyone, regardless of age, including the bridal party, who attends the wedding that is not a vendor, such as a photographer.",
+    summary: "Arrive 15 minutes before ceremony start time.  Includes chapel, gazebo, grounds, officiant services and gazebo chairs. A guest is considered anyone, regardless of age, including the bridal party, who attends the wedding that is not a vendor, such as a photographer.  The bride and groom are not guests to their own wedding.",
     tier : [
       {
         label: "0-2 Guests",
@@ -177,6 +181,10 @@ let Package1 = {
     payments: {
       summary: "For other deposit amount agreed upon, remaining balance, or payment towards package. Please note in comments box.  Remaining balance due 30 days before wedding.",
       options: [
+        {
+          label: "Pay full package amount (If fee is less than $500, the full amount of the package is due at time of reservation)",
+          amount: 55555
+        },
         {
           label: "Pay package deposit of $500",
           amount: 500

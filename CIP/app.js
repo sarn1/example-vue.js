@@ -12,8 +12,8 @@ new Vue({
     errors: [],
     show_paypal: false,
     results_error_msg : "",
-    show_menu_section : true,
-    debug : false,
+    show_menu_section : false,
+    debug : true,
   },
   mounted: function(e) {
     // if triggered payment
@@ -165,7 +165,7 @@ new Vue({
 
      // validate brick
      if (this.package.show_bricks) {
-       var maxlength = 14;
+       var maxlength = 20;
        // option 3 includes bricks, but its not madatory if they want to fill it in.
        // option 1 and at least 1 needs to be filled in.
        if (this.cart.selection != 3 && this.cart.entries.brick_1.length == 0 && this.cart.entries.brick_2.length == 0 && this.cart.entries.brick_3.length == 0) {
@@ -183,11 +183,14 @@ new Vue({
        if (this.cart.entries.brick_3.length > maxlength) {
          this.errors.push("Brick Row #3 is greater than " + maxlength + " in character.");
        }
-
      }
 
      // if no errors, process!
      if (! this.errors.length) {
+
+       // custom elopment full amt calculation
+       this.cart.Elopement_Full_Amt_Calc();
+
        this.show_form = false;
        this.show_menu_section = false;
        this.show_paypal = true;
