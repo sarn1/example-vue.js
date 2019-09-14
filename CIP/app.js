@@ -136,7 +136,7 @@ new Vue({
        this.errors.push("Groom phone name is required.");
      }
 
-     if (!document.getElementById("acknowledge").checked) {
+     if (this.cart.selection != 5 && !document.getElementById("acknowledge").checked ) {
         this.errors.push("You must agree to the terms before proceeding.");
      }
 

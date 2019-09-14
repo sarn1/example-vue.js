@@ -104,7 +104,7 @@ if (strtoupper($cart['entries']['bumper']) == "SPRINGFIELD") {
   //save to database
   $con=mysqli_connect(DB_HOST,DB_NAME,DB_PASSWORD,DB_NAME);
   $stmt = mysqli_prepare($con,"INSERT INTO _reservation (order_num, bride_email, body, date_modified) values (?,?,?,now())");
-  mysqli_stmt_bind_param($stmt,'sss',$order_num,$cart['entries']['bride_email'],$body);
+  mysqli_stmt_bind_param($stmt,'iss',$cart['order_num'],$cart['entries']['bride_email'],$body);
   mysqli_stmt_execute($stmt);
 
 }
