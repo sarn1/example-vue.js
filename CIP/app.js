@@ -12,8 +12,8 @@ new Vue({
     errors: [],
     show_paypal: false,
     results_error_msg : "",
-    show_menu_section : false,
-    debug : true,
+    show_menu_section : true,
+    debug : false,
   },
   mounted: function(e) {
     // if triggered payment
