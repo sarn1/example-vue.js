@@ -41,3 +41,6 @@ npm run serve
 ### [architectui-vue-theme-free-master (HTML with Preprocessor)](architectui-vue-theme-free-master)
 - https://vue.architectui.com/#/
 - https://github.com/DashboardPack/architectui-vue-theme-free
+
+### To Do ###
+- Ajax Example - https://www.sitepoint.com/fetching-data-third-party-api-vue-axios/
